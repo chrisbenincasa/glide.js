@@ -1,0 +1,42 @@
+.left
+{
+  float: left;
+}
+
+.right
+{
+  float: right;
+}
+
+.clearfix
+{
+  clear: both;
+  display: block;
+}
+
+div.top_nav
+{
+  height: 45px;
+  box-shadow: 0px 2px 5px #ccc;
+  margin-bottom: 15px;
+}
+
+div.top_nav div.nav_inner
+{
+  width: 800px;
+  margin: 0 auto;
+}
+
+div.main_body_wrap
+{
+  width: 960px;
+  margin: 0 auto;
+}
+
+div#slider_example
+{
+  width: 900px;
+  height: 400px;
+  background: gray;
+  box-shadow: 1px 2px 5px #333;
+}
