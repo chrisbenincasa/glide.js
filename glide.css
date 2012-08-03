@@ -1,0 +1,82 @@
+/* TapCliq Example Styles */
+
+/**
+  * To Be Editied:
+  *
+  *   pagination styles
+  *   next/previpus link styles
+  *   start/pause styles
+**/
+
+/*Default .slider_container to height & width of parent */
+.slider_container
+{
+  height: inherit;
+  width: 100%;
+}
+
+.pagination
+{
+  text-align: center;
+}
+
+.pagination a
+{
+  display: inline-block;
+  vertical-align: middle;
+  text-indent: -9999px;
+  color: gray;
+  background-color: gray;
+  cursor: pointer;
+}
+
+.pagination a.circle
+{
+  height: 10px;
+  width: 10px;
+  border-radius: 10px;
+}
+
+.pagination a.square
+{
+  width: 10px;
+  height: 10px;
+  margin-right: 3px;
+}
+
+.pagination a.diamond
+{
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+}
+
+.pagination a.active
+{
+  background-color: steelblue;
+}
+
+.slider-caption
+{
+  width: 100%;
+  display: block;
+  position: absolute;
+  background: black;
+  color: white;
+  opacity: 0.85;
+}
+
+.slider-caption div
+{
+  padding: 7px;
+}
+
+.slider-html-caption
+{
+  display: none;
+}

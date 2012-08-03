@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>jQuery Simple Carousel</title>
+  <link rel="stylesheet" type="text/css" href="simpleCarousel.css">
+  <script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+  <script type="text/javascript" src="simpleCarousel.min.js"></script>
+</head>
+<body>
+  <div id="tap_slider">
+    <div class="slider_container">
+      <div class="tap_slide">
+        <div class="slide_inner">
+          <div class="tap_caption">
+            <h2>Static Text</h2>
+          </div>
+          <img class="background_image" src="imgs/bg1.png" />
+          <img class="foreground_image" height="100%" src="imgs/model1.png" />
+        </div>
+      </div>
+      <div class="tap_slide">
+        <div class="slide_inner">
+          <div class="tap_caption">
+            <h2>Static Text</h2>
+          </div>
+          <img class="background_image" src="imgs/bg2.png" />
+          <img class="foreground_image" height="100%" src="imgs/model2.png" />
+        </div>
+      </div>
+      <div class="tap_slide">
+        <div class="slide_inner">
+          <div class="tap_caption">
+            <h2>Static Text</h2>
+          </div>
+          <img class="background_image" src="imgs/bg3.png" />
+          <img class="foreground_image" height="100%" src="imgs/model3.png" />
+        </div>
+      </div>
+    </div>
+    <a href="#" class="playPauseLink pause">Pause</a>
+  </div>
+
+  <script type="text/javascript">
+    var slider = $('#tap_slider').simpleCarousel({
+      autoPlay: 3000,
+      keyboardNav: true,
+      nextPrevLinks: true,
+      captionAnimation:'fade',
+      customCaption: '.tap_caption',
+      captionDelay: 300});
+
+    $('.playPauseLink').click(function(e){
+      e.preventDefault();
+      $this = $(this);
+      if($this.hasClass('pause')){
+        $this.removeClass('pause').addClass('play');
+        $this.text('Play');
+        slider.simpleCarousel('stop');
+      } else {
+        $this.removeClass('play').addClass('pause');
+        $this.text('Pause');
+        slider.simpleCarousel('play');
+      }
+    })
+  </script>
+</body>
+</html>
