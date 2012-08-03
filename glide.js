@@ -196,10 +196,12 @@
 
           //Generate link for each page if pagination is set to true
           if(options.pagination) {
-            $this.append('<div class="'+options.paginationClass+'"/>');
+            $paginationWrapper = $('<div class="'+options.paginationClass+'"/>').appendTo($this).css({
+              textAlign: options.paginationPosition
+            });
             pagination = $('.'+options.paginationClass, $this)
             slides.each(function(index, elem){
-              pagination.append('<a href="#" class="'+options.paginationStyle+'">'+index+'</a>')
+              pagination.append('<a href="#" class="'+options.paginationStyle+'">' + '<span>' + index + '</span>' + '</a>')
             });
             pagination.children().click(function(event){
               event.preventDefault();
@@ -221,31 +223,36 @@
           //Generate next and previous links if nextPrevLinks is set to true
           if(options.nextPrevLinks)
           {
-            $this.append('<a href="#" class="'+options.nextClass+'">next</a>').prepend('<a href="#" class="'+options.prevClass+'">previous</a>')
-            $this.find('.'+options.nextClass).click(function(event){
-              event.preventDefault();
-              if(options.autoPlay)
-              { 
-                $this.glide('stop');
-              }
-              $this.glide('next');
-              if(options.autoPlay)
-              {
-                $this.glide('start');
-              }
-            }).siblings('.'+options.prevClass).click(function(event){
-              event.preventDefault();
-              if(options.autoPlay)
-              { 
-                $this.glide('stop');
-              }
-              $this.glide('prev');
-              if(options.autoPlay)
-              {
-                $this.glide('start');
-              }
-            })
+            $this.append('<a href="#" class="'+options.prevClass+'">previous</a><a href="#" class="'+options.nextClass+'">next</a>')
           }
+
+          /* Attach handlers in case */
+
+          $('.'+options.nextClass, $this).click(function(event){
+            event.preventDefault();
+            if(options.autoPlay)
+            { 
+              $this.glide('stop');
+            }
+            $this.glide('next');
+            if(options.autoPlay)
+            {
+              $this.glide('start');
+            }
+          });
+
+          $('.'+options.prevClass, $this).click(function(event){
+            event.preventDefault();
+            if(options.autoPlay)
+            { 
+              $this.glide('stop');
+            }
+            $this.glide('prev');
+            if(options.autoPlay)
+            {
+              $this.glide('start');
+            }
+          });
 
           //Finished initalizing
           //Call custom callback function
@@ -648,6 +655,7 @@
     nextPrevLinks     : false,              // generate next-slide and previous-slide links
     pagination        : true,               // generate link for each slide
     paginationStyle   : 'circle',           // circle, square, diamond, *
+    paginationPosition: 'center',
     orientation       : 'horizontal',       // horizontal, vertical **ignored if animation is set to fade**
     animation         : 'slide',            // slide, fade
     customCaption     : '',                 // HTML class to denote custom caption class to override default caption functionality, used for custom caption positioning         

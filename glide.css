@@ -24,17 +24,26 @@
 {
   display: inline-block;
   vertical-align: middle;
-  text-indent: -9999px;
   color: gray;
   background-color: gray;
   cursor: pointer;
+  -webkit-transition: background-color 0.2s;
+  -moz-transition: background-color 0.2s;
+  -o-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+}
+
+.pagination a span
+{
+  display: none;
 }
 
 .pagination a.circle
 {
-  height: 10px;
-  width: 10px;
+  height: 13px;
+  width: 13px;
   border-radius: 10px;
+  margin-right: 3px;
 }
 
 .pagination a.square
@@ -54,6 +63,11 @@
   -ms-transform: rotate(45deg);
   -moz-transform: rotate(45deg);
   -o-transform: rotate(45deg);
+}
+
+.pagination a:hover
+{
+  background-color: green;
 }
 
 .pagination a.active
@@ -79,4 +93,13 @@
 .slider-html-caption
 {
   display: none;
+}
+
+/* Additional styles */
+
+a.next, a.prev
+{
+  display: inline-block;
+  vertical-align: middle;
+  height: 20px;
 }
