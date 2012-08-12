@@ -1,3 +1,9 @@
+body
+{
+  font-size: 13px;
+  background-color: #fcfcfc;
+}
+
 .left
 {
   float: left;
@@ -14,23 +20,100 @@
   display: block;
 }
 
+.unicode
+{
+  font-family: 'Lucida Sans Unicode';
+}
+
+::selection, ::-moz-selection
+{
+  background-color: steelblue;
+  color: white;
+}
+
+a
+{
+  text-decoration: none;
+  -webkit-transition: color 0.2s;
+  -moz-transition: color 0.2s;
+  -ms-transition: color 0.2s;
+  -o-transition: color 0.2s;
+  transition: color 0.2s;
+}
+
+pre
+{
+  white-space: pre;
+  background-color: #fefefe;
+  width: 750px;
+}
+
+h2
+{
+  font-size: 14pt;
+}
+
+h3
+{
+  font-size: 15px;
+}
+
+p
+{
+  font-size: 13px;
+  margin-bottom: 3px;
+}
+
 div.top_nav
 {
-  height: 45px;
-  box-shadow: 0px 2px 5px #ccc;
+  height: 35px;
+  box-shadow: 0px -6px 20px 3px #666;
   margin-bottom: 15px;
+  position: fixed;
+  z-index: 5;
+  top: 0;
+  width: 100%;
+  background: white;
+  font-size: 1.25em;
 }
 
 div.top_nav div.nav_inner
 {
-  width: 800px;
+  width: 960px;
   margin: 0 auto;
+  height: 100%;
+}
+
+div.nav
+{
+  height: 100%;
+}
+
+div.nav_inner a
+{
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 35px;
+  padding: 0 5px;
+  -webkit-transition: background-color 0.33s, color 0.33s;
+  -moz-transition: background-color 0.33s, color 0.33s;
+  -o-transition: background-color 0.33s, color 0.33s;
+  -ms-transition: background-color 0.33s, color 0.33s;
+  transition: background-color 0.33s, color 0.33s;
+}
+
+div.nav_inner a.active_link, div.nav_inner a:hover
+{
+  background-color: steelblue;
+  color: white;
 }
 
 div.main_body_wrap
 {
   width: 960px;
-  margin: 0 auto;
+  margin: 60px auto 0;
+  position: relative;
+  z-index: 1;
 }
 
 div#slider_example
@@ -39,4 +122,172 @@ div#slider_example
   height: 400px;
   background: gray;
   box-shadow: 1px 2px 5px #333;
+  margin: 0 auto;
+}
+
+.slider_container
+{
+  margin-bottom: 7px;
+}
+
+.pagination a
+{
+  background-color: #999;
+}
+
+.pagination a:hover
+{
+  background-color: #fcd700;
+}
+
+.pagination a.active:hover
+{
+  background-color: steelblue;
+}
+
+a.pause
+{
+  letter-spacing: -6px;
+  line-height: 18px;
+  color: gray;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  -webkit-transition: color 0.2s;
+  -moz-transition: color 0.2s;
+  -o-transition: color 0.2s;
+  -ms-transition: color 0.2s;
+  transition: color 0.2s;
+}
+
+a.pause:hover
+{
+  color: steelblue;
+}
+
+#summary
+{
+  margin-top: 50px;
+  padding-top: 0;
+}
+
+.section
+{
+  border-bottom: thin solid lightgray;
+  padding: 10px 0;
+}
+
+.section:last-child
+{
+  border-bottom: none;
+}
+
+.section h1
+{
+  font-size: 20pt;
+  display: inline-block;
+}
+
+div.section#docs h3
+{
+  font-weight: normal;
+  margin-bottom: 3px;
+}
+
+div#docs div.option_wrap
+{
+  margin-bottom: 15px;
+}
+
+span.option_type.option_boolean
+{
+  color: darkred;
+}
+
+span.option_type.option_string
+{
+  color: darkblue;
+}
+
+span.option_type.option_integer
+{
+  color: darkgreen;
+}
+
+span.option_name
+{
+  font-weight: bold;
+}
+
+.section .header_link
+{
+  font-size: 16pt;
+}
+
+span.tag
+{
+  color: darkblue;
+}
+
+span.attribute
+{
+  color: darkgreen;
+}
+
+span.string
+{
+  color: goldenrod;
+}
+
+span.selector
+{
+  color: teal;
+}
+
+span.default
+{
+  font-weight: bold;
+  font-style: italic;
+}
+
+b.arrow
+{
+  border-color: darkgray;
+  -webkit-transition: border-color 0.2s;
+  -moz-transition: border-color 0.2s;
+  -o-transition: border-color 0.2s;
+  -ms-transition: border-color 0.2s;
+  transition: border-color 0.2s;
+}
+
+b.arrow.right_arrow
+{
+  display: inline-block;
+  vertical-align: middle;
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 9px solid gray;
+  content: "";
+}
+
+b.arrow.left_arrow
+{
+  display: inline-block;
+  vertical-align: middle;
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-right: 9px solid gray;
+  content: "";
+}
+
+b.arrow:hover
+{
+  cursor: pointer;
+  border-right-color: steelblue;
+  border-left-color: steelblue;
 }

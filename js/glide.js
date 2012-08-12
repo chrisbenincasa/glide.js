@@ -140,6 +140,10 @@
           }
 
           else {
+            if(options.preload)
+            {
+
+            }
             //Positioning set up for horizontal display
 
             //Arrange and order slides
@@ -665,12 +669,12 @@
     startSlide        : 0,                  // zero-based slide index
     autoPlay          : 0,                  // when activated, will be the amount of time each slide is active in ms, 0 will deactivate autoPlay
     fadeSpeed         : 350,                // fade transition speed in ms
-    fadeEasing        : '',                 // fade easing, extend options using jquery.easing plugin
+    fadeEasing        : 'swing',                 // fade easing, extend options using jquery.easing plugin
     slideSpeed        : 350,                // slide transition speed
-    slideEasing       : '',                 // slide easing, extend options using jquery.easing plugin
+    slideEasing       : 'swing',                 // slide easing, extend options using jquery.easing plugin
     adjustHeight      : false,              // carousel will adjust height its for each slide
     adjustHeightSpeed : 350,                // height transition speed
-    adjustHeightEasing: '',                 // height adjustment easing, extend options using jquery.easing plugin
+    adjustHeightEasing: 'swing',                 // height adjustment easing, extend options using jquery.easing plugin
     slideContainer    : 'slider_container', // class of container that holds slides
     currentClass      : 'current',          // class of slide that is active and showing
     paginationClass   : 'pagination',       // class applied to each pagination link

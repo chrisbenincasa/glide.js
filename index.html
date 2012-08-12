@@ -3,15 +3,26 @@
 <head>
   <title>Glide.js</title>
   <link rel="stylesheet" type="text/css" href="reset.css">
+  <link rel="stylesheet" type="text/css" href="glide.css">
   <link rel="stylesheet" type="text/css" href="style.css">
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
   <script type="text/javascript" src="js/glide.min.js"></script>
-  <script type="text/javascript" src="main.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
 </head>
 <body>
   <div class="top_nav">
     <div class="nav_inner">
-      <a href="#">Glide.js</a>
+      <div class="left">
+        <a class="home_link active_link" href="#">Glide.js</a>
+      </div>
+      <div class="right nav">
+        <a class="summary_link" href="#summary">Summary</a>
+        <a class="how_link" href="#how">How?</a>
+        <a class="examples_link" href="#examples">Examples</a>
+        <a class="docs_link" href="#docs">Docs</a>
+        <a class="download_link" href="#download">Download</a>
+      </div>
+      <div class="clearfix"></div>
     </div>
   </div>
   <div class="main_body_wrap">
@@ -30,7 +41,314 @@
           <img src="imgs/4.jpg" />
         </div>
       </div>
+      <div class="right">
+        <b class="arrow left_arrow"></b>
+        <b class="arrow right_arrow"></b>
+        <a href="#" class="pause playing">&#x258D;&#x258D;</a>
+      </div>
+    </div>
+    <div id="summary" class="section">
+      <a class="header_link" href="#summary">#</a><h1>Summary</h1>
+      <p>Glide.js is a compact</p>
+    </div>
+    <div id="how" class="section">
+      <a class="header_link" href="#how">#</a><h1>How?</h1>
+      <p>Glide.js couldn't be easier to integrate into your website. Here's a short sample of how to use Glide.js.</p>
+      <pre>
+<code>
+  &lt;!doctype html&gt;
+  <span class="tag">&lt;html&gt;</span>
+  <span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;link</span> <span class="attribute">rel</span>=<span class="string">"stylesheet"</span> <span class="attribute">type</span>=<span class="string">"text/css"</span> <span class="attribute">href</span>=<span class="string">"glide.css"</span> <span class="tag">/&gt;</span>
+    <span class="tag">&lt;script</span> <span class="attribute">type</span>=<span class="string">"text/javascript"</span> <span class="attribute">src</span>=<span class="string">"jquery-1.7.2.js"</span><span class="tag">&gt;&lt;/script&gt;</span>
+    <span class="tag">&lt;script</span> <span class="attribute">type</span>=<span class="string">"text/javascript"</span> <span class="attribute">src</span>=<span class="string">"glide.js"</span><span class="tag">&gt;&lt;/script&gt;</span>
+    <span class="tag">&lt;style</span> <span class="attribute">type</span>=<span class="string">"text/css"</span><span class="tag">&gt;</span>
+
+      <span class="tag">div</span><span class="selector">#slider</span>
+      {
+        width: 900px;
+        height: 400px;
+      }
+
+      <span class="tag">div</span><span class="selector">.slider_container</span>
+      {
+        width: 100%;
+        height: inherit;
+        display: block;
+      }
+
+    <span class="tag">&lt;/style&gt;</span>
+  <span class="tag">&lt;/head&gt;</span>
+  <span class="tag">&lt;body&gt;</span>
+      <span class="tag">&lt;div</span> <span class="attribute">id</span>=<span class="string">"slider"</span>&gt;
+        <span class="tag">&lt;div</span> <span class="attribute">class</span>=<span class="string">"slider_container"</span><span class="tag">&gt;</span>
+          <span class="tag">&lt;div&gt;</span>
+            <span class="tag">&lt;img</span> <span class="attribute">src</span>=<span class="string">"imgs/1.jpg"</span><span class="tag">/&gt;</span>
+          <span class="tag">&lt;/div&gt;</span>
+          <span class="tag">&lt;div&gt;</span>
+            <span class="tag">&lt;img</span> <span class="attribute">src</span>=<span class="string">"imgs/2.jpg"</span><span class="tag">/&gt;</span>
+          <span class="tag">&lt;/div&gt;</span>
+          <span class="tag">&lt;div&gt;</span>
+            <span class="tag">&lt;img</span> <span class="attribute">src</span>=<span class="string">"imgs/3.jpg"</span><span class="tag">/&gt;</span>
+          <span class="tag">&lt;/div&gt;</span>
+        <span class="tag">&lt;/div&gt;</span>
+      <span class="tag">&lt;/div&gt;</span>
+      <span class="tag">&lt;script</span> <span class="attribute">type</span>=<span class="string">"text/javascript"</span><span class="tag">&gt;</span>
+        $('#slider').glide();
+      <span class="tag">&lt;/script&gt;</span>
+  <span class="tag">&lt;/body&gt;</span>
+  <span class="tag">&lt;/html&gt;</span>
+</code>
+      </pre>
+    </div>
+    <div id="examples" class="section">
+      <a class="header_link" href="#examples">#</a><h1>Examples</h1>
+      <p>There are tons of awesome options that come built into Glide.js. Here are some examples of what you can do:</p>
+      <ul>
+        <li><a href="demos/elaborate/">Elaborate</a></li>
+        <li><a href="demos/minimal/">Minimal</a></li>
+        <li><a href="demos/vertical/">Vertical</a></li>
+        <li><a href="demos/animations/">Animations</a></li>
+        <li><a href="demos/captions/">Captions</a></li>
+        <li><a href="demos/methods/">Methods</a></li>
+      </ul>
+    </div>
+    <div id="docs" class="section">
+      <a class="header_link" href="#docs">#</a><h1>Docs</h1>
+      <div class="options_section">  
+        <h2>Options</h2>
+        <div class="option_wrap" id="preload">
+          <h3><span class="option_name">preload</span> - <span class="option_type option_boolean">boolean</span></h3>
+          <p>When set, the slider will preload images before starting.</p>
+          <p><span class="default">Default:</span> false</p>
+        </div>
+        <div class="option_wrap" id="preload-image">
+          <h3><span class="option_name">preloadImage</span> - <span class="option_type option_string">string</span></h3>
+          <p>Relative path to the image that displays while slides are being loaded.</p>
+          <p><span class="default">Default:</span> 'imgs/loading.gif'</p>
+        </div>
+        <div class="option_wrap" id="">
+          <h3><span class="option_name">nextPrevLinks</span> - <span class="option_type option_boolean">boolean</span></h3>
+          <p>Generate next and previous button links.</p>
+          <p><span class="default">Default:</span> false</p>
+        </div>
+        <div class="option_wrap" id="">
+          <h3><span class="option_name">pagination</span> - <span class="option_type option_boolean">boolean</span></h3>
+          <p>Generate pagination links (one per slide).</p>
+          <p><span class="default">Default:</span> true</p>
+        </div>
+        <div class="option_wrap" id="">
+          <h3><span class="option_name">paginationStyle</span> - <span class="option_type option_string">string</span></h3>
+          <p>Shape to display pagination links as. Leave blank for none.</p>
+          <p>Accepted values: 'circle', 'square', 'diamond'.</p>
+          <p><span class="default">Default:</span> 'circle'</p>
+        </div>
+        <div class="option_wrap" id="">
+          <h3><span class="option_name">paginationPosition</span> - <span class="option_type option_string">string</span></h3>
+          <p>Position to display pagination links.</p>
+          <p>Accepted Values: 'left', 'center', 'right'.</p>
+          <p><span class="default">Default:</span> 'center'</p>
+        </div>
+        <div class="option_wrap" id="">
+          <h3><span class="option_name">orientation</span>: - <span class="option_type option_string">string</span></h3>
+          <p>Direction to animate new slides.</p>
+          <p>Accepted Values: 'horizontal', 'vertical'.</p>
+          <p><span class="default">Default:</span> 'horizontal'</p>
+        </div>
+        <div class="option_wrap" id="">
+          <h3><span class="option_name">animation</span> - <span class="option_type option_string">string</span></h3>
+          <p>Animation effect type when transitioning slides.</p>
+          <p>Accepted Values: 'slide', 'fade'.</p>
+          <p>More animation types are coming soon&hellip;</p>
+          <p><span class="default">Default:</span> 'slide'</p>
+        </div>
+        <div class="option_wrap" id="">
+          <h3><span class="option_name">captionAnimation</span> - <span class="option_type option_string">string</span></h3>
+          <p>Animation effect type to use when displaying built-in captions.</p>
+          <p><span class="default">Default:</span> 'slide'</p>
+        </div>
+        <div class="option_wrap" id="">
+          <h3><span class="option_name">captionDelay</span> - <span class="option_type option_integer">integer</span></h3>
+          <p>Time, in milliseconds, to delay the animation of built-in captions.</p>
+          <p><span class="default">Default:</span> 0</p>
+        </div>
+        <div class="option_wrap" id="">
+          <h3><span class="option_name">customCaption</span> - <span class="option_type option_string">string</span></h3>
+          <p>Class name of a custom caption. Custom captions allow custom styling and positioning options. Custom captions can only use the 'fade' effect to show or hide. Leave this option blank to use the built-in caption system.</p>
+          <p><span class="default">Default:</span> ''</p>
+        </div>
+        <div class="option_wrap" id="">
+          <h3><span class="option_name">pauseOnHover</span> - <span class="option_type option_boolean">boolean</span></h3>
+          <p>Stop progression of the slider when the pointer is hovering over it.</p>
+          <p><span class="default">Default:</span> false</p>
+        </div>
+        <div class="option_wrap" id="">
+          <h3><span class="option_name">startSlide</span> - <span class="option_type option_integer">integer</span></h3>
+          <p>Numberical index (starting from zero) of the slide to start on.</p>
+          <p><span class="default">Default:</span> 0</p>
+        </div>
+        <div class="option_wrap" id="">
+          <h3><span class="option_name">autoPlay</span> - <span class="option_type option_integer">integer</span></h3>
+          <p>Time, in milliseconds, to display each slide. Setting this option to 0 will initiate a slider that never progresses automatically.</p>
+          <p><span class="default">Default:</span> 0</p>
+        </div>
+        <div class="option_wrap" id="">
+          <h3><span class="option_name">fadeSpeed</span> - <span class="option_type option_integer">integer</span></h3>
+          <p>Animation speed, in milliseconds, when using the 'fade' animation effect.</p>
+          <p><span class="default">Default:</span> 350</p>
+        </div>
+        <div class="option_wrap" id="">
+          <h3><span class="option_name">fadeEasing</span> - <span class="option_type option_string">string</span></h3>
+          <p>Type of animation easing when using the 'fade' effect.</p>
+          <p>By default, jQuery is packaged with two easing functions: 'swing' and 'linear'. <a href="http://api.jquery.com/animate/#easing">Read about these easing functions</a>.</p>
+          <p>If you wish to have more easing options, <a href="http://gsgd.co.uk/sandbox/jquery/easing/">download the jQuery Easing Plugin</a> and include the script before glide.js.</p>
+          <p><span class="default">Default:</span> 'swing'</p>
+        </div>
+        <div class="option_wrap" id="">
+          <h3><span class="option_name">slideSpeed</span> - <span class="option_type option_integer">integer</span></h3>
+          <p>Animation speed, in milliseconds, when using the 'slide' animation effect.</p>
+          <p><span class="default">Default:</span> 350</p>
+        </div>
+        <div class="option_wrap" id="">
+          <h3><span class="option_name">slideEasing</span> - <span class="option_type option_string">string</span></h3>
+          <p>Type of animation easing when using the 'slide' effect.</p>
+          <p>By default, jQuery is packaged with two easing functions: 'swing' and 'linear'. <a href="http://api.jquery.com/animate/#easing">Read about these easing functions</a>.</p>
+          <p>If you wish to have more easing options, <a href="http://gsgd.co.uk/sandbox/jquery/easing/">download the jQuery Easing Plugin</a> and include the script before glide.js.</p>
+          <p><span class="default">Default:</span> 'swing'</p>
+        </div>
+        <div class="option_wrap" id="">
+          <h3><span class="option_name">adjustHeight</span> - <span class="option_type option_boolean">boolean</span></h3>
+          <p>Automatically adjust the height of the slider to the height of the currently showing slide. This option is only available when using the 'horizonal' orientation.</p>
+          <p><span class="default">Default:</span> false</p>
+        </div>
+        <div class="option_wrap" id="">
+          <h3><span class="option_name">adjustHeightSpeed</span> - <span class="option_type option_integer">integer</span></h3>
+          <p>Animation speed, in milliseconds, at which the height of the slider is adjusted.</p>
+          <p><span class="default">Default:</span> 350</p>
+        </div>
+        <div class="option_wrap" id="">
+          <h3><span class="option_name">adjustHeightEasing</span> - <span class="option_type option_string">string</span></h3>
+          <p>Type of animation easing when adjusting the height of the slider.</p>
+          <p><span class="default">Default:</span> 'swing'</p>
+        </div>
+        <div class="option_wrap" id="">
+          <h3><span class="option_name">slideContainer</span> - <span class="option_type option_string">string</span></h3>
+          <p>Class name of the container that all fo the slides are contained within.</p>
+          <p><span class="default">Default:</span> 'slider_container'</p>
+        </div>
+        <div class="option_wrap" id="">
+          <h3><span class="option_name">currentClass</span> - <span class="option_type option_string">string</span></h3>
+          <p>Class name of the slide that is currently visible.</p>
+          <p><span class="default">Default:</span> 'current'</p>
+        </div>
+        <div class="option_wrap" id="">
+          <h3><span class="option_name">paginationClass</span> - <span class="option_type option_string">string</span></h3>
+          <p>Class name to apply to pagination link container.</p>
+          <p><span class="default">Default:</span> 'pagination'</p>
+        </div>
+        <div class="option_wrap" id="">
+          <h3><span class="option_name">nextClass</span> - <span class="option_type option_string">string</span></h3>
+          <p>Class name to apply to the 'next' button.</p>
+          <p><span class="default">Default:</span> 'next'</p>
+        </div>
+        <div class="option_wrap" id="">
+          <h3><span class="option_name">prevClass</span> - <span class="option_type option_string">string</span></h3>
+          <p>Class name to apply to the 'prev' button.</p>
+          <p><span class="default">Default:</span> 'prev'</p>
+        </div>
+        <div class="option_wrap" id="">
+          <h3><span class="option_name">keyboardNav</span> - <span class="option_type option_boolean">boolean</span></h3>
+          <p>Allow the use of the arrow keys to navigate to next and previous slides.</p>
+          <p><span class="default">Default:</span> false</p>
+        </div>
+      </div>
+      <div class="options_section">
+        <h2>Callbacks</h2>
+        <div class="option_wrap">
+          <h3><span class="option_name">initCallback()</span></h3>
+          <p>Called after slider is initialized.</p>
+        </div>
+        <div class="option_wrap">
+          <h3><span class="option_name">loadedCallback()</span></h3>
+          <p>Called after slides are loaded.</p>
+        </div>
+        <div class="option_wrap">
+          <h3><span class="option_name">animationStart()</span></h3>
+          <p>Called before every animation.</p>
+        </div>
+        <div class="option_wrap">
+          <h3><span class="option_name">animationEnd()</span></h3>
+          <p>Called after every animation.</p>
+        </div>
+      </div>
+      <div class="options_section">
+        <h2>Methods</h2>
+        <p>Glide.js is also packaged with methods that enable easy manipulation of slider actions and options.</p>
+        <p>In order to call methods, the glide() function is called with parameters on the element the slider was initialized on.</p>
+        <p>The first parameter is a string representing the name of the method you wish to call. The second and third parameters exist for certain methods -- see below.</p>
+        <div class="option_wrap">
+          <h3><span class="option_name">get</span></h3>
+          <p>Return the value of the specified option.</p>
+          <code>$('#slider').glide('get', 'autoPlay');</code>
+        </div>
+        <div class="option_wrap">
+          <h3><span class="option_name">set</span></h3>
+          <p>Set the value of the specified option.</p>
+          <code>$('#slider').glide('set', 'animationSpeed', 800);</code>
+        </div>
+        <div class="option_wrap">
+          <h3><span class="option_name">next</span></h3>
+          <p>Immediately triggers the slider to progress to the next slide.</p>
+          <code>$('#slider').glide('next');</code>
+        </div>
+        <div class="option_wrap">
+          <h3><span class="option_name">prev</span></h3>
+          <p>Immediately triggers the slider to regress to the previous slide.</p>
+          <code>$('#slider').glide('prev');</code>
+        </div>
+        <div class="option_wrap">
+          <h3><span class="option_name">to</span></h3>
+          <p>Immediately triggers the slider to navigate to the specified slide number.</p>
+          <code>$('#slider').glide('to', 3);</code>
+        </div>
+        <div class="option_wrap">
+          <h3><span class="option_name">start</span></h3>
+          <p>Trigger autoPlay on the slider. Optionally set the length of time each slide is visible.</p>
+          <code>$('#slider').glide('start'); // Default 3 seconds per slide.</code>
+          <br>
+          <code>$('#slider').glide('start', 6000); // 6 seconds per slide.</code>
+        </div>
+        <div class="option_wrap">
+          <h3><span class="option_name">stop</span></h3>
+          <p>Stop the slideshow.</p>
+          <code>$('#slider').glide('stop');</code>
+        </div>
+      </div>
+    </div>
+    <div id="download" class="section">
+      <a class="header_link" href="#download">#</a><h1>Download</h1>
     </div>
   </div>
+  <script type="text/javascript">
+    var slider = $('#slider_example').glide({
+      autoPlay: 5000,
+      paginationPosition: 'left'
+    });
+    $('a.pause').click(function(e){
+      e.preventDefault();
+      $this = $(this);
+      if($this.hasClass('playing'))
+      {
+        slider.glide('stop');
+        $this.removeClass('playing').addClass('paused');
+        $this.hide().css({fontSize: '18px'}).text("\u25B6").show();
+      } else {
+        slider.glide('start', 5000);
+        $this.removeClass('paused').addClass('playing');
+        $this.hide().css({fontSize: '13px'}).text("\u258D\u258D").show();
+      }
+      
+    });
+  </script>
 </body>
 </html>
