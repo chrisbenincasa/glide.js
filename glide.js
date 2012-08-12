@@ -532,8 +532,10 @@
 
         //Handle changes to options on the fly
         $this.on('sliderChange', function(event, info){
+          console.log(options)
           if(options.autoPlay > 0)
           {
+            clearInterval(playTimer);
             playTimer = setInterval(function(){
               animate('next', animation);
             }, options.autoPlay);
