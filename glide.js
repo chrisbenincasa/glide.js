@@ -65,6 +65,7 @@
               } else {
                 imageParent = controller.children().eq(startSlide);
               }
+
               img.load(function(){
                 maxHeight = Math.max(maxHeight, $(this).height());
                 controller.children().css({
@@ -89,6 +90,8 @@
                 $('.'+options.slideContainer, $this).css({
                   display: 'block'
                 });
+
+                generateCaptions();
 
                 controller.children().eq(startSlide).fadeIn(options.fadeSpeed, options.fadeEasing, function(){
                   loaded = true;
@@ -131,6 +134,8 @@
               $('.'+options.slideContainer, $this).css({
                 display: 'block'
               });
+
+              generateCaptions();
         
               controller.children().eq(startSlide).fadeIn(options.fadeSpeed, options.fadeEasing, function(){
                 loaded = true;
@@ -155,6 +160,7 @@
             }
           }
 
+          //begin horizontal slider setup
           else {
 
             //Display slide container
@@ -168,18 +174,18 @@
               var img = controller.find('img').eq(startSlide),
                   src = img.attr('src');
 
-              img.attr('src', src + '?' + (new Date()).getTime()).load(function(e){
+              controller.children().css({
+                position: 'absolute',
+                top: 0,
+                left: controller.children().outerWidth(),
+                zIndex: 0,
+                display: 'none'
+              });
 
+              img.attr('src', src + '?' + (new Date()).getTime()).load(function(e){
                 //Positioning set up for horizontal display
                 totalWidth = controller.children().outerWidth();
-                
-                controller.children().css({
-                  position: 'absolute',
-                  top: 0,
-                  left: controller.children().outerWidth(),
-                  zIndex: 0,
-                  display: 'none'
-                });
+
                 //Create carousel of 3 times length of slides
                 controller.css({
                     position: 'relative',
@@ -195,6 +201,8 @@
                     zIndex: 5
                   });
 
+                  generateCaptions();
+
                   //Display first caption (if it exists)
                   //Check if custom caption class was defined, and if so, fade in that
                   //Otherwise, use built in caption (title attribute from element)
@@ -207,7 +215,7 @@
                     if(options.captionAnimation === 'slide')
                     {
                       caption.animate({
-                          'top': '-='+caption.outerHeight()
+                          'top': '-=' + caption.outerHeight()
                         }, 300, 'swing');
                       options.loadedCallback.call($this);
                     } else {
@@ -217,6 +225,7 @@
                 });
               })
             } else {
+
               controller.children().css({
                 position: 'absolute',
                 top: 0,
@@ -237,6 +246,9 @@
                 $(this).css({
                   zIndex: 5
                 });
+
+                generateCaptions();
+
                 if(options.customCaption.length !== 0)
                 {
                   caption = controller.find(options.customCaption).eq(startSlide);
@@ -325,20 +337,23 @@
           return $this;
         }
 
-        //Generate captions if custom ones aren't defined
-        if(options.customCaption.length === 0)
+        function generateCaptions()
         {
-          controller.contents().find('img').each(function(index, ele){
-            title = $(ele).attr('title')
-            if(title !== undefined) {
-              if(title.indexOf('#') === 0)
-              {
-                title = $(title).html()
-              }
+          //Generate captions if custom ones aren't defined
+          if(options.customCaption.length === 0)
+          {
+            controller.contents().find('img').each(function(index, ele){
+              title = $(ele).attr('title')
+              if(title !== undefined) {
+                if(title.indexOf('#') === 0)
+                {
+                  title = $(title).html()
+                }
 
-              createCaption($(ele), title, index)
-            }
-          });
+                createCaption($(ele), title, index)
+              }
+            });
+          }
         }
 
         //Enable keyboard navigation using the right and left arrows if user sets keyboardNav: true
