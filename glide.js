@@ -52,8 +52,20 @@
 
           // Set up controller to scroll vertically;
           if(options.orientation === 'vertical') {
-            if(options.preload) {
-              slides.children().load(function(){
+            if(options.preload && controller.find('img').eq(startSlide).length) {
+              $('.'+options.slideContainer, $this).css({
+                background: 'url(' + options.preloadImage + ') 50% 50%'
+              });
+
+              var img = controller.find('img').eq(startSlide), imageParent;
+
+              if(img.parent().hasClass('slider_controller'))
+              {
+                imageParent = img;
+              } else {
+                imageParent = controller.children().eq(startSlide);
+              }
+              img.load(function(){
                 maxHeight = Math.max(maxHeight, $(this).height());
                 controller.children().css({
                   position: 'absolute',
@@ -61,6 +73,10 @@
                   left: 0,
                   zIndex: 0,
                   display: 'none'
+                });
+
+                $('.'+options.slideContainer, $this).css({
+                  background: ''
                 });
 
                 controller.css({
@@ -164,33 +180,69 @@
               display: 'block'
             });
 
-            //Fade in first slide
-            controller.children().eq(startSlide).fadeIn(options.fadeSpeed, options.fadeEasing, function(){
-              loaded = true;
-              $(this).css({
-                zIndex: 5
-              });
-
-            //Display first caption (if it exists)
-            //Check if custom caption class was defined, and if so, fade in that
-            //Otherwise, use built in caption (title attribute from element)
-            if(options.customCaption.length !== 0)
+            if(options.preload && controller.find('img').eq(startSlide).length)
             {
-              caption = controller.find(options.customCaption).eq(startSlide);
-              caption.delay(options.captionDelay).fadeIn(options.fadeSpeed, options.fadeEasing)
+              $('.' + options.slideContainer, $this).css('background', 'url(' + options.preloadImage + ') 50% 50%');
+              var img = controller.find('img').eq(startSlide),
+                  src = img.attr('src');
+
+              img.attr('src', src + '?' + (new Date()).getTime()).load(function(e){
+
+                //Fade in first slide
+                controller.children().eq(startSlide).fadeIn(options.fadeSpeed, options.fadeEasing, function(){
+                  loaded = true;
+                  $(this).css({
+                    zIndex: 5
+                  });
+
+                  //Display first caption (if it exists)
+                  //Check if custom caption class was defined, and if so, fade in that
+                  //Otherwise, use built in caption (title attribute from element)
+                  if(options.customCaption.length !== 0)
+                  {
+                    caption = controller.find(options.customCaption).eq(startSlide);
+                    caption.delay(options.captionDelay).fadeIn(options.fadeSpeed, options.fadeEasing)
+                  } else {
+                    caption = controller.find('.slider-caption').eq(startSlide);
+                    if(options.captionAnimation === 'slide')
+                    {
+                      caption.animate({
+                          'top': '-='+caption.outerHeight()
+                        }, 300, 'swing');
+                      options.loadedCallback.call($this);
+                    } else {
+                      caption.hide().css({'top': '-='+caption.outerHeight()}).fadeIn();
+                    }
+                  }
+                });
+              })
             } else {
-              caption = controller.find('.slider-caption').eq(startSlide);
-              if(options.captionAnimation === 'slide')
-              {
-                caption.animate({
-                    'top': '-='+caption.outerHeight()
-                  }, 300, 'swing');
-                options.loadedCallback.call($this);
-              } else {
-                caption.hide().css({'top': '-='+caption.outerHeight()}).fadeIn();
-              }
+
+              //If no preload, just fade in the first slide
+              controller.children().eq(startSlide).fadeIn(options.fadeSpeed, options.fadeEasing, function(){
+                loaded = true;
+                $(this).css({
+                  zIndex: 5
+                });
+                if(options.customCaption.length !== 0)
+                {
+                  caption = controller.find(options.customCaption).eq(startSlide);
+                  caption.delay(options.captionDelay).fadeIn(options.fadeSpeed, options.fadeEasing)
+                } else {
+                  caption = controller.find('.slider-caption').eq(startSlide);
+                  if(options.captionAnimation === 'slide')
+                  {
+                    caption.animate({
+                        'top': '-='+caption.outerHeight()
+                      }, 300, 'swing');
+                    options.loadedCallback.call($this);
+                  } else {
+                    caption.hide().css({'top': '-='+caption.outerHeight()}).fadeIn();
+                  }
+                }
+              });
             }
-            });
+            
           //End horizontal slide setup
           }
 
@@ -532,14 +584,13 @@
 
         //Handle changes to options on the fly
         $this.on('sliderChange', function(event, info){
-          console.log(options)
           if(options.autoPlay > 0)
           {
+            stop();
             clearInterval(playTimer);
             playTimer = setInterval(function(){
               animate('next', animation);
             }, options.autoPlay);
-
             if(options.pauseOnHover)
             {
               $this.on('mouseenter', function(){
@@ -558,6 +609,8 @@
               clearInterval(playTimer); 
             }
           }
+
+          animation = options.animation;
         });
 
         //Initialize options
