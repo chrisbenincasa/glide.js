@@ -101,12 +101,14 @@
 
                     //only fading is supported for custom captions at this time
                     caption.delay(options.captionDelay).fadeIn(fadeSpeed, fadeEasing);
+
                   } else {
                     caption = $(this).find('.slider_caption');
+                    console.log(caption)
                     if(options.captionAnimation === 'slide')
                     { 
                       caption.animate({
-                        'top': '-='+$(this).outerWidth()
+                        'top': '-=' + caption.outerHeight()
                       });
                     } else {
                       caption.hide().css({'top': '-='+$(this).outerWidth()}).fadeIn();
@@ -148,10 +150,10 @@
                   if (options.captionAnimation === 'slide')
                   {
                     caption.animate({
-                      'top': '-='+$(this).outerWidth()
+                      'top': '-=' + $(this).outerHeight()
                     });
                   } else {
-                    caption.hide().css({'top': '-='+$(this).outerWidth()}).fadeIn();
+                    caption.hide().css({'top': '-=' + $(this).outerWidth()}).fadeIn();
                   }
                 }
 
@@ -258,7 +260,7 @@
                   if(options.captionAnimation === 'slide')
                   {
                     caption.animate({
-                        'top': '-='+caption.outerHeight()
+                        'top': '-=' + caption.outerHeight()
                       }, 300, 'swing');
                     options.loadedCallback.call($this);
                   } else {
@@ -356,6 +358,24 @@
           }
         }
 
+        //Generate caption elements and insert after corresponding slide
+        function createCaption(slide, content, index)
+        {
+          content = $('<div class="slider-caption"><div>'+content+'</div></div>');
+          slide.after(content);
+          if(options.orientation === 'horizontal')
+          {
+            content.css({
+              top: controller.height()
+            });
+          } else {
+            content.css({
+              top: $('.' + options.slideContainer).height()
+            });
+          }
+          
+        }
+
         //Enable keyboard navigation using the right and left arrows if user sets keyboardNav: true
         if(options.keyboardNav) {
           $(document).keydown(function(event){
@@ -371,16 +391,6 @@
             {
               $this.glide('prev');
             }
-          });
-        }
-
-        //Generate caption elements and insert after corresponding slide
-        function createCaption(slide, content, index)
-        {
-          content = $('<div class="slider-caption"><div>'+content+'</div></div>');
-          slide.after(content);
-          content.css({
-            top: controller.height()
           });
         }
 
