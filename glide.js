@@ -156,25 +156,7 @@
           }
 
           else {
-            //Positioning set up for horizontal display
 
-            //Arrange and order slides
-            controller.children().css({
-              position: 'absolute',
-              top: 0,
-              left: controller.children().outerWidth(),
-              zIndex: 0,
-              display: 'none'
-            });
-
-            //Create carousel of 3 times length of slides
-            controller.css({
-                position: 'relative',
-                width: (totalWidth*3),
-                height: maxHeight,
-                left: -(totalWidth)
-              });
-            
             //Display slide container
             $('.'+options.slideContainer, $this).css({
               display: 'block'
@@ -187,6 +169,24 @@
                   src = img.attr('src');
 
               img.attr('src', src + '?' + (new Date()).getTime()).load(function(e){
+
+                //Positioning set up for horizontal display
+                totalWidth = controller.children().outerWidth();
+                
+                controller.children().css({
+                  position: 'absolute',
+                  top: 0,
+                  left: controller.children().outerWidth(),
+                  zIndex: 0,
+                  display: 'none'
+                });
+                //Create carousel of 3 times length of slides
+                controller.css({
+                    position: 'relative',
+                    width: (totalWidth*3),
+                    height: maxHeight,
+                    left: -(totalWidth)
+                  });
 
                 //Fade in first slide
                 controller.children().eq(startSlide).fadeIn(options.fadeSpeed, options.fadeEasing, function(){
@@ -217,7 +217,20 @@
                 });
               })
             } else {
-
+              controller.children().css({
+                position: 'absolute',
+                top: 0,
+                left: controller.children().outerWidth(),
+                zIndex: 0,
+                display: 'none'
+              });
+              //Create carousel of 3 times length of slides
+              controller.css({
+                  position: 'relative',
+                  width: (totalWidth*3),
+                  height: maxHeight,
+                  left: -(totalWidth)
+                });
               //If no preload, just fade in the first slide
               controller.children().eq(startSlide).fadeIn(options.fadeSpeed, options.fadeEasing, function(){
                 loaded = true;
@@ -309,6 +322,7 @@
           //Finished initalizing
           //Call custom callback function
           options.initCallback.call($this)
+          return $this;
         }
 
         //Generate captions if custom ones aren't defined
