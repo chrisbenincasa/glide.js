@@ -396,8 +396,8 @@
                 nextSlide = (currentSlide === totalSlides) ? 0 : currentSlide + 1;
                 if (options.orientation === 'vertical')
                 {
-                  position = maxHeight;
-                  direction = position;
+                  position = 0;
+                  direction = 0;
                 }
                 else
                 {
@@ -410,8 +410,8 @@
                 previousSlide = currentSlide;
                 nextSlide = ((currentSlide - 1) === -1) ? (totalSlides) : (currentSlide - 1)
                 if (options.orientation === 'vertical') {
-                  position = maxHeight;
-                  direction = position;
+                  position = maxHeight*2;
+                  direction = -position;
                 }
                 else {
                   position = 0;
@@ -427,8 +427,8 @@
 
                 if(nextSlide > previousSlide) {
                   if (options.orientation === 'vertical') {
-                    position = maxHeight;
-                    direction = position;
+                    position = 0;
+                    direction = 0;
                   }
                   else {
                     position = totalWidth*2;
@@ -437,8 +437,8 @@
                 }
                 else {
                   if (options.orientation === 'vertical') {
-                    position = maxHeight;
-                    direction = position;
+                    position = maxHeight*2;
+                    direction = -position;
                   }
                   else {
                     position = 0;
@@ -479,15 +479,16 @@
             else {
               if(options.orientation === 'vertical')
               {
+
                 //Vertical Slider
 
                 controller.children().eq(nextSlide).css({
-                  top: 0,
+                  top: position,
                   display: 'block'
                 });
 
                 controller.animate({
-                  top: 0
+                  top: direction
                 }, options.slideSpeed, options.slideEasing, function(){
                   controller.css({
                     top: -maxHeight
