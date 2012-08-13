@@ -52,8 +52,20 @@
 
           // Set up controller to scroll vertically;
           if(options.orientation === 'vertical') {
-            if(options.preload) {
-              slides.children().load(function(){
+            if(options.preload && controller.find('img').eq(startSlide).length) {
+              $('.'+options.slideContainer, $this).css({
+                background: 'url(' + options.preloadImage + ') 50% 50%'
+              });
+
+              var img = controller.find('img').eq(startSlide), imageParent;
+
+              if(img.parent().hasClass('slider_controller'))
+              {
+                imageParent = img;
+              } else {
+                imageParent = controller.children().eq(startSlide);
+              }
+              img.load(function(){
                 maxHeight = Math.max(maxHeight, $(this).height());
                 controller.children().css({
                   position: 'absolute',
@@ -61,6 +73,10 @@
                   left: 0,
                   zIndex: 0,
                   display: 'none'
+                });
+
+                $('.'+options.slideContainer, $this).css({
+                  background: ''
                 });
 
                 controller.css({
@@ -140,61 +156,106 @@
           }
 
           else {
-            if(options.preload)
-            {
 
-            }
-            //Positioning set up for horizontal display
-
-            //Arrange and order slides
-            controller.children().css({
-              position: 'absolute',
-              top: 0,
-              left: controller.children().outerWidth(),
-              zIndex: 0,
-              display: 'none'
-            });
-
-            //Create carousel of 3 times length of slides
-            controller.css({
-                position: 'relative',
-                width: (totalWidth*3),
-                height: maxHeight,
-                left: -(totalWidth)
-              });
-            
             //Display slide container
             $('.'+options.slideContainer, $this).css({
               display: 'block'
             });
 
-            //Fade in first slide
-            controller.children().eq(startSlide).fadeIn(options.fadeSpeed, options.fadeEasing, function(){
-              loaded = true;
-              $(this).css({
-                zIndex: 5
-              });
-
-            //Display first caption (if it exists)
-            //Check if custom caption class was defined, and if so, fade in that
-            //Otherwise, use built in caption (title attribute from element)
-            if(options.customCaption.length !== 0)
+            if(options.preload && controller.find('img').eq(startSlide).length)
             {
-              caption = controller.find(options.customCaption).eq(startSlide);
-              caption.delay(options.captionDelay).fadeIn(options.fadeSpeed, options.fadeEasing)
+              $('.' + options.slideContainer, $this).css('background', 'url(' + options.preloadImage + ') 50% 50%');
+              var img = controller.find('img').eq(startSlide),
+                  src = img.attr('src');
+
+              img.attr('src', src + '?' + (new Date()).getTime()).load(function(e){
+
+                //Positioning set up for horizontal display
+                totalWidth = controller.children().outerWidth();
+
+                controller.children().css({
+                  position: 'absolute',
+                  top: 0,
+                  left: controller.children().outerWidth(),
+                  zIndex: 0,
+                  display: 'none'
+                });
+                //Create carousel of 3 times length of slides
+                controller.css({
+                    position: 'relative',
+                    width: (totalWidth*3),
+                    height: maxHeight,
+                    left: -(totalWidth)
+                  });
+
+                //Fade in first slide
+                controller.children().eq(startSlide).fadeIn(options.fadeSpeed, options.fadeEasing, function(){
+                  loaded = true;
+                  $(this).css({
+                    zIndex: 5
+                  });
+
+                  //Display first caption (if it exists)
+                  //Check if custom caption class was defined, and if so, fade in that
+                  //Otherwise, use built in caption (title attribute from element)
+                  if(options.customCaption.length !== 0)
+                  {
+                    caption = controller.find(options.customCaption).eq(startSlide);
+                    caption.delay(options.captionDelay).fadeIn(options.fadeSpeed, options.fadeEasing)
+                  } else {
+                    caption = controller.find('.slider-caption').eq(startSlide);
+                    if(options.captionAnimation === 'slide')
+                    {
+                      caption.animate({
+                          'top': '-='+caption.outerHeight()
+                        }, 300, 'swing');
+                      options.loadedCallback.call($this);
+                    } else {
+                      caption.hide().css({'top': '-='+caption.outerHeight()}).fadeIn();
+                    }
+                  }
+                });
+              })
             } else {
-              caption = controller.find('.slider-caption').eq(startSlide);
-              if(options.captionAnimation === 'slide')
-              {
-                caption.animate({
-                    'top': '-='+caption.outerHeight()
-                  }, 300, 'swing');
-                options.loadedCallback.call($this);
-              } else {
-                caption.hide().css({'top': '-='+caption.outerHeight()}).fadeIn();
-              }
+              controller.children().css({
+                position: 'absolute',
+                top: 0,
+                left: controller.children().outerWidth(),
+                zIndex: 0,
+                display: 'none'
+              });
+              //Create carousel of 3 times length of slides
+              controller.css({
+                  position: 'relative',
+                  width: (totalWidth*3),
+                  height: maxHeight,
+                  left: -(totalWidth)
+                });
+              //If no preload, just fade in the first slide
+              controller.children().eq(startSlide).fadeIn(options.fadeSpeed, options.fadeEasing, function(){
+                loaded = true;
+                $(this).css({
+                  zIndex: 5
+                });
+                if(options.customCaption.length !== 0)
+                {
+                  caption = controller.find(options.customCaption).eq(startSlide);
+                  caption.delay(options.captionDelay).fadeIn(options.fadeSpeed, options.fadeEasing)
+                } else {
+                  caption = controller.find('.slider-caption').eq(startSlide);
+                  if(options.captionAnimation === 'slide')
+                  {
+                    caption.animate({
+                        'top': '-='+caption.outerHeight()
+                      }, 300, 'swing');
+                    options.loadedCallback.call($this);
+                  } else {
+                    caption.hide().css({'top': '-='+caption.outerHeight()}).fadeIn();
+                  }
+                }
+              });
             }
-            });
+            
           //End horizontal slide setup
           }
 
@@ -260,7 +321,8 @@
 
           //Finished initalizing
           //Call custom callback function
-          options.initCallback.call($this)
+          options.initCallback.call($this, options)
+          return $this;
         }
 
         //Generate captions if custom ones aren't defined
@@ -372,7 +434,7 @@
                 break;
             }
 
-            options.animationStart.call($this, currentSlide);
+            options.animationStart.call($this, currentSlide, controller.children().eq(currentSlide));
 
             //Crossfader
             if(animation === 'fade') {
@@ -394,7 +456,7 @@
                 handleCaptionAnimation(nextSlide, true);
 
                 animating = false;
-                options.animationEnd.call($this, currentSlide);
+                options.animationEnd.call($this, currentSlide, controller.children().eq(currentSlide));
               })
             }
 
@@ -538,10 +600,11 @@
         $this.on('sliderChange', function(event, info){
           if(options.autoPlay > 0)
           {
+            stop();
+            clearInterval(playTimer);
             playTimer = setInterval(function(){
               animate('next', animation);
             }, options.autoPlay);
-
             if(options.pauseOnHover)
             {
               $this.on('mouseenter', function(){
@@ -560,6 +623,8 @@
               clearInterval(playTimer); 
             }
           }
+
+          animation = options.animation;
         });
 
         //Initialize options
@@ -669,12 +734,12 @@
     startSlide        : 0,                  // zero-based slide index
     autoPlay          : 0,                  // when activated, will be the amount of time each slide is active in ms, 0 will deactivate autoPlay
     fadeSpeed         : 350,                // fade transition speed in ms
-    fadeEasing        : 'swing',                 // fade easing, extend options using jquery.easing plugin
+    fadeEasing        : '',                 // fade easing, extend options using jquery.easing plugin
     slideSpeed        : 350,                // slide transition speed
-    slideEasing       : 'swing',                 // slide easing, extend options using jquery.easing plugin
+    slideEasing       : '',                 // slide easing, extend options using jquery.easing plugin
     adjustHeight      : false,              // carousel will adjust height its for each slide
     adjustHeightSpeed : 350,                // height transition speed
-    adjustHeightEasing: 'swing',                 // height adjustment easing, extend options using jquery.easing plugin
+    adjustHeightEasing: '',                 // height adjustment easing, extend options using jquery.easing plugin
     slideContainer    : 'slider_container', // class of container that holds slides
     currentClass      : 'current',          // class of slide that is active and showing
     paginationClass   : 'pagination',       // class applied to each pagination link

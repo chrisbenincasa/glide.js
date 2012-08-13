@@ -36,10 +36,10 @@
 <body>
   <div id="vertical_slider">
     <div class="slider_container">
-      <img src="imgs/vertical_img.jpg" />
-      <img src="imgs/vertical_img2.jpg" />
-      <img src="imgs/vertical_img3.jpg" />
-      <img src="imgs/vertical_img4.jpg" />
+      <img src="../imgs/vertical_img.jpg" />
+      <img src="../imgs/vertical_img2.jpg" />
+      <img src="../imgs/vertical_img3.jpg" />
+      <img src="../imgs/vertical_img4.jpg" />
     </div>
   </div>
   <div class="example_code_wrap">
@@ -88,6 +88,8 @@
   </div>
   <script type="text/javascript">
     $('#vertical_slider').glide({
+      preload: true,
+      preloadImage: '../imgs/loading.gif',
       orientation: 'vertical',
       autoPlay: 3000
     });

@@ -2,14 +2,89 @@
 <html>
 <head>
   <title>Glide.js Elaborate Example</title>
-  <link rel="stylesheet" type="text/css" href="../../reset.css">
   <link rel="stylesheet" type="text/css" href="../../glide.css">
-  <link rel="stylesheet" type="text/css" href="../../style.css">
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-  <script type="text/javascript" src="../../js/glide.min.js"></script>
-  <script type="text/javascript" src="../../js/main.js"></script>
+  <script type="text/javascript" src="../../js/glide.js"></script>
+  <style type="text/css">
+    #elaborate_example
+    {
+      width: 500px;
+      height: 500px;
+      margin: 30px auto;
+    }
+
+    .progress_bar_wrap
+    {
+      width: 500px;
+      height: 25px;
+      margin: 0 auto;
+      border: thin solid gray;
+      position: relative;
+    }
+
+    .bar_1
+    {
+      width: 100%;
+      height: inherit;
+      z-index: 1;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .bar_2
+    {
+      width: 0%;
+      height: inherit;
+      background-color: steelblue;
+      z-index: 2;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+  </style>
 </head>
 <body>
-  
+  <div id="elaborate_example">
+    <div class="slider_container">
+      <img src="../imgs/vertical_img.jpg" />
+      <img src="../imgs/vertical_img2.jpg" />
+      <img src="../imgs/vertical_img3.jpg" />
+      <img src="../imgs/vertical_img4.jpg" />
+    </div>
+  </div>
+  <div class="progress_bar_wrap">
+    <div class="bar_1"></div>
+    <div class="bar_2"></div>
+  </div>
+  <script type="text/javascript">
+    var timer, milli = 10,
+        bar_width = $('.progress_bar_wrap').width();
+    var slider = $('#elaborate_example').glide({
+      preload: true,
+      preloadImage: '../imgs/loading.gif',
+      autoPlay: 4500
+      // initCallback: function(e){
+      //   timer = setInterval(function(){
+      //     $('.bar_2').css({
+      //       width: (milli/50) + '%'
+      //     })
+      //     milli += 10
+      //   }, 10)
+      // },
+      // animationStart: function(index, slide){
+      //   clearInterval(timer);
+      //   $('.bar_2').css('width', 0);
+      //   milli = 10;
+      //   timer = setInterval(function(){
+      //     $('.bar_2').css({
+      //       width: (milli/50) + '%'
+      //     })
+      //     milli += 10;
+      //   }, 10);
+      // }
+    });
+  </script>
 </body>
 </html>

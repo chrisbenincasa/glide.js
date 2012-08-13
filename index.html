@@ -265,20 +265,23 @@
       <div class="options_section">
         <h2>Callbacks</h2>
         <div class="option_wrap">
-          <h3><span class="option_name">initCallback()</span></h3>
+          <h3><span class="option_name">initCallback(options)</span></h3>
           <p>Called after slider is initialized.</p>
+          <p>Passes the set of options defined for the current slider into the function.</p>
         </div>
         <div class="option_wrap">
           <h3><span class="option_name">loadedCallback()</span></h3>
           <p>Called after slides are loaded.</p>
         </div>
         <div class="option_wrap">
-          <h3><span class="option_name">animationStart()</span></h3>
+          <h3><span class="option_name">animationStart(index, slide)</span></h3>
           <p>Called before every animation.</p>
+          <p>Passes the numerical index of the current slide and the jQuery object representing that slide.</p>
         </div>
         <div class="option_wrap">
-          <h3><span class="option_name">animationEnd()</span></h3>
+          <h3><span class="option_name">animationEnd(index, slide)</span></h3>
           <p>Called after every animation.</p>
+          <p>Passes the numerical index of the current slide and the jQuery object representing that slide.</p>
         </div>
       </div>
       <div class="options_section">
@@ -347,7 +350,14 @@
         $this.removeClass('paused').addClass('playing');
         $this.hide().css({fontSize: '13px'}).text("\u258D\u258D").show();
       }
-      
+    });
+
+    $('.right_arrow').click(function(e){
+      slider.glide('next');
+    });
+
+    $('.left_arrow').click(function(e){
+      slider.glide('prev');
     });
   </script>
 </body>
