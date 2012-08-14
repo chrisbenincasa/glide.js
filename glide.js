@@ -103,11 +103,10 @@
                     caption.delay(options.captionDelay).fadeIn(fadeSpeed, fadeEasing);
 
                   } else {
-                    caption = $(this).find('.slider_caption');
-                    console.log(caption)
+                    caption = $(this).find('.slider-caption');
                     if(options.captionAnimation === 'slide')
                     { 
-                      caption.animate({
+                      caption.show().animate({
                         'top': '-=' + caption.outerHeight()
                       });
                     } else {
@@ -211,7 +210,8 @@
                   if(options.customCaption.length !== 0)
                   {
                     caption = controller.find(options.customCaption).eq(startSlide);
-                    caption.delay(options.captionDelay).fadeIn(options.fadeSpeed, options.fadeEasing)
+                    caption.delay(options.captionDelay).fadeIn(options.fadeSpeed, options.fadeEasing);
+
                   } else {
                     caption = controller.find('.slider-caption').eq(startSlide);
                     if(options.captionAnimation === 'slide')
@@ -259,7 +259,7 @@
                   caption = controller.find('.slider-caption').eq(startSlide);
                   if(options.captionAnimation === 'slide')
                   {
-                    caption.animate({
+                    caption.show().animate({
                         'top': '-=' + caption.outerHeight()
                       }, 300, 'swing');
                     options.loadedCallback.call($this);
@@ -370,6 +370,7 @@
             });
           } else {
             content.css({
+              display: 'none',
               top: $('.' + options.slideContainer).height()
             });
           }
@@ -489,38 +490,42 @@
             else {
               if(options.orientation === 'vertical')
               {
-
-                //Vertical Slider
-
                 controller.children().eq(nextSlide).css({
                   top: position,
                   display: 'block'
                 });
 
-                controller.animate({
-                  top: direction
-                }, options.slideSpeed, options.slideEasing, function(){
-                  controller.css({
-                    top: -maxHeight
-                  });
+                handleCaptionAnimation(previousSlide, false);
 
-                  controller.children().eq(nextSlide).css({
-                    top: maxHeight,
-                    zIndex: 5
-                  });
+                // Timeout vertical animation until caption is hidden so as not to see it moving
+                setTimeout(function(){
+                  controller.animate({
+                    top: direction
+                  }, options.slideSpeed, options.slideEasing, function(){
+                    controller.css({
+                      top: -maxHeight
+                    });
 
-                  controller.children().eq(previousSlide).css({
-                    top: maxHeight,
-                    display: 'none',
-                    zIndex: 0
+                    controller.children().eq(nextSlide).css({
+                      top: maxHeight,
+                      zIndex: 5
+                    });
+
+                    controller.children().eq(previousSlide).css({
+                      top: maxHeight,
+                      display: 'none',
+                      zIndex: 0
+                    });
+
+                    handleCaptionAnimation(nextSlide, true);
+
                   });
-                });
+                }, options.slideSpeed)
 
                 options.animationEnd.call();
                 animating = false;
               } else {
-                //Horizontal Slider
-
+                
                 controller.children().eq(nextSlide).css({
                   left: position,
                   display: 'block'
@@ -582,7 +587,7 @@
               caption.delay(options.captionDelay).fadeIn(options.fadeSpeed, options.fadeEasing);
             } else {
               if(options.captionAnimation === 'fade') caption.hide().css({'top': '-='+caption.outerHeight()}).delay(options.captionDelay).fadeIn(options.fadeSpeed, options.fadeEasing);
-              else if(options.captionAnimation === 'slide') caption.delay(options.captionDelay).animate({top: controller.height() - caption.outerHeight()}, options.slideSpeed, options.slideEasing)
+              else if(options.captionAnimation === 'slide') caption.delay(options.captionDelay).show().animate({top: "-=" + caption.outerHeight()}, options.slideSpeed, options.slideEasing)
             }
           } else {
             if(options.customCaption.length !== 0)
@@ -591,7 +596,9 @@
               caption.delay(options.captionDelay).fadeOut(options.fadeSpeed, options.fadeEasing);
             } else {
               if(options.captionAnimation === 'fade') caption.fadeOut(options.fadeSpeed, options.fadeEasing, function(){$(this).css({top: controller.height()})});
-              else if(options.captionAnimation === 'slide') caption.animate({top: controller.height()}, options.slideSpeed, options.slideEasing);
+              else if(options.captionAnimation === 'slide') caption.animate({top: "+=" + caption.outerHeight()}, options.slideSpeed, options.slideEasing, function(){
+                $(this).hide();
+              });
             }
           }
         }
