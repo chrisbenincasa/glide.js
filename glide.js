@@ -70,7 +70,7 @@
                 maxHeight = Math.max(maxHeight, $(this).height());
                 controller.children().css({
                   position: 'absolute',
-                  top: controller.children().height(),
+                  top: $('.' + options.slideContainer).height(),
                   left: 0,
                   zIndex: 0,
                   display: 'none'
@@ -282,6 +282,7 @@
             slides.each(function(index, elem){
               pagination.append('<a href="#" class="'+options.paginationStyle+'">' + '<span>' + index + '</span>' + '</a>')
             });
+            $this.css('height', '+=' + $paginationWrapper.outerHeight())
             pagination.children().click(function(event){
               event.preventDefault();
               if(!$(this).hasClass('active'))
@@ -525,7 +526,7 @@
                 options.animationEnd.call();
                 animating = false;
               } else {
-                
+
                 controller.children().eq(nextSlide).css({
                   left: position,
                   display: 'block'
@@ -676,8 +677,7 @@
     **/
     get: function(option)
     {
-      $this = $(this);
-      options = ($this.data('options')) ? $this.data('options') : defaultSettings;
+      options = ($(this).data('options')) ? $(this).data('options') : defaultSettings;
       return (options[option]) ? options[option] : 'This option does not exist';
     }, 
 
@@ -690,10 +690,9 @@
     **/
     set: function(option, value)
     {
-      $this = $(this);
-      data = ($this.data('options')) ? $this.data('options') : null;
+      data = ($(this).data('options')) ? $(this).data('options') : null;
       data[option] = value;
-      return $this.trigger('sliderChange');
+      return $(this).trigger('sliderChange');
     },
 
     /**
