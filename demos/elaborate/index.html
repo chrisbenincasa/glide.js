@@ -2,55 +2,85 @@
 <html>
 <head>
   <title>Glide.js Captions Example</title>
-  <link rel="stylesheet" type="text/css" href="../../glide.css">
+  <link rel="stylesheet" type="text/css" href="../includes/styles/glide.css">
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-  <script type="text/javascript" src="../../glide.js"></script>
+  <!-- <script type="text/javascript" src="../includes/js/glide.js"></script> -->
+  <script type="text/javascript" src="../includes/js/glide.js"></script>
   <style type="text/css">
     body {
-      background: url(../imgs/bg.jpg);
+      background: url(../includes/imgs/bg.jpg);
+      margin: 0;
     }
 
-    .elaborate_slider_wrap {
-      width: 640px;
-      height: 427px;
-      margin: 0 auto;
-      border: 15px solid #f6f6f6;
-      box-shadow: 0 0 0 1px #8691A5, 0 3px 7px 1px #222;
-      border-radius: 10px;
-      border-bottom-width: 30px;
-    }
-
-    #elaborate_slider{
-      width: 640px;
-      height: 427px;
+    #elaborate_slider { 
+      width: 800px;
+      height: 460px;
+      margin: 50px auto 0;
     }
 
     .slider_container {
-      width: 640px;
-      height: 427px;
+      width: 800px;
+      height: 483px;
+    }
+
+    .caption {
+      position: absolute;
+      top: 20px;
+      left: 40px;
+      width: 100px;
+      height: 30px;
+      box-shadow: 0 0 5px black;
+      z-index: 10;
+      background-color: white;
+      border-radius: 5px;
+      padding: 10px;
+    }
+
+    .foreground {
+      position: absolute;
+      top: 500px;
+      right: 10px;
+      z-index: 10;
     }
 
   </style>
 </head>
 <body>
-  <div class="elaborate_slider_wrap">
-    <div id="elaborate_slider">
-      <div class="slider_container">
-        <div class="slide">
-          <img src="http://farm8.staticflickr.com/7019/6838765469_a537cc8e7e_z_d.jpg" />
+  <div id="elaborate_slider">
+    <div class="slider_container">
+      <div class="slide">
+        <div class="foreground">
+          <img src="imgs/iphone_hand_1.png" />
         </div>
-        <div class="slide">
-          <img src="http://farm8.staticflickr.com/7164/6838764583_45d3706ec8_z_d.jpg" />
+        <div class="background">
+          <img src="../includes/imgs/2.jpg" />
         </div>
-        <div class="slide">
-          <img src="http://farm7.staticflickr.com/6063/6128509913_cbfbd6b8f6_z_d.jpg" />
-        </div>
+        <div class="caption">Test</div>
+      </div>
+      <div class="slide">
+        <img src="../includes/imgs/vertical_img2.jpg" />
+      </div>
+      <div class="slide">
+        <img src="../includes/imgs/vertical_img3.jpg" />
       </div>
     </div>
   </div>
+  </div>
   <script type="text/javascript">
-    $('#elaborate_slider').glide({
+    slider = $('#elaborate_slider').glide({
       preload: true,
+      customCaption: '.caption',
+      initCallback: function(){
+        $(this).css('background', '');
+        $(this).find('.slide .background > img').fadeTo(400, '0.85', function(){
+          console.log($(this).closest('.foreground'))
+          $('.foreground').first().delay(200).animate({top: '30px'});
+        });
+      },
+      animationEnd: function(currentSlide)
+      {
+        
+      }
     });
   </script>
 </body>

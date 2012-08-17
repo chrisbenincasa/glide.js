@@ -72,7 +72,7 @@
           if(options.orientation === 'vertical') {
             if(options.preload && controller.find('img').eq(startSlide).length) {
               $('.'+options.slideContainer, $this).css({
-                background: 'url(' + options.preloadImage + ') no-repeat 50% 50%'
+                background: 'url(' + options.preloadImage + ') 50% 50%'
               });
 
               var img = controller.find('img').eq(startSlide),
@@ -107,7 +107,7 @@
 
             if(options.preload && controller.find('img').eq(startSlide).length)
             {
-              $('.' + options.slideContainer, $this).css('background', 'url(' + options.preloadImage + ') no-repeat 50% 50%');
+              $('.' + options.slideContainer, $this).css('background', 'url(' + options.preloadImage + ') 50% 50%');
               var img = controller.find('img').eq(startSlide),
                   src = img.attr('src');
 
