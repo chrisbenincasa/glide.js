@@ -18,6 +18,7 @@
 .glide-pagination
 {
   text-align: center;
+  margin-top: 3px;
 }
 
 .glide-pagination a
@@ -44,6 +45,7 @@
   width: 13px;
   border-radius: 10px;
   margin-right: 3px;
+  text-indent: -9999px;
 }
 
 .glide-pagination a.square
@@ -51,6 +53,7 @@
   width: 10px;
   height: 10px;
   margin-right: 3px;
+  text-indent: -9999px;
 }
 
 .glide-pagination a.diamond
@@ -63,6 +66,7 @@
   -ms-transform: rotate(45deg);
   -moz-transform: rotate(45deg);
   -o-transform: rotate(45deg);
+  text-indent: -9999px;
 }
 
 .glide-pagination a:hover

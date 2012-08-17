@@ -142,19 +142,8 @@ div.slider_container
   /*margin-bottom: 7px;*/
 }
 
-.pagination a
-{
-  background-color: #999;
-}
-
-.pagination a:hover
-{
-  background-color: #fcd700;
-}
-
-.pagination a.active:hover
-{
-  background-color: steelblue;
+.glide-pagination, .controls {
+  margin-top: 5px;
 }
 
 a.pause
