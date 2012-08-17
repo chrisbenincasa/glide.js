@@ -57,7 +57,9 @@
                 background: 'url(' + options.preloadImage + ') 50% 50%'
               });
 
-              var img = controller.find('img').eq(startSlide), imageParent;
+              var img = controller.find('img').eq(startSlide),
+                  src = img.attr('src'), 
+                  imageParent;
 
               if(img.parent().hasClass('slider_controller'))
               {
@@ -65,11 +67,70 @@
               } else {
                 imageParent = controller.children().eq(startSlide);
               }
-              img.load(function(){
+
+              //hide children first to prevent flickering
+              controller.children().css('display', 'none');
+
+              img.attr('src', src + '?' + (new Date()).getTime()).load(function(){
                 maxHeight = Math.max(maxHeight, $(this).height());
-                controller.children().css({
+                _createSlider();
+              });
+            } else {
+              _createSlider();
+            }
+          }
+
+          //begin horizontal slider setup
+          else {
+            //Display slide container
+            $('.'+options.slideContainer, $this).css({
+              display: 'block'
+            });
+
+            if(options.preload && controller.find('img').eq(startSlide).length)
+            {
+              $('.' + options.slideContainer, $this).css('background', 'url(' + options.preloadImage + ') 50% 50%');
+              var img = controller.find('img').eq(startSlide),
+                  src = img.attr('src');
+
+              controller.children().css({
+                position: 'absolute',
+                top: 0,
+                left: controller.children().outerWidth(),
+                zIndex: 0,
+                display: 'none'
+              });
+
+              img.attr('src', src + '?' + (new Date()).getTime()).load(function(e){
+                //Positioning set up for horizontal display
+                totalWidth = controller.children().outerWidth();
+                _createSlider();
+                
+              });
+            } else {
+
+              controller.children().css({
+                position: 'absolute',
+                top: 0,
+                left: controller.children().outerWidth(),
+                zIndex: 0,
+                display: 'none'
+              });
+              
+              _createSlider();
+            }
+            
+          //End horizontal slide setup
+          }
+
+          //Function that arranges slides and does necessary CSS setup. Called exactly once.
+          function _createSlider()
+          {
+            if(options.orientation === 'vertical')
+            {
+              controller.children().css({
                   position: 'absolute',
-                  top: controller.children().height(),
+                  top: $('.' + options.slideContainer).height(),
                   left: 0,
                   zIndex: 0,
                   display: 'none'
@@ -90,6 +151,8 @@
                   display: 'block'
                 });
 
+                generateCaptions();
+
                 controller.children().eq(startSlide).fadeIn(options.fadeSpeed, options.fadeEasing, function(){
                   loaded = true;
                   if(options.customCaption.length !== 0)
@@ -98,12 +161,13 @@
 
                     //only fading is supported for custom captions at this time
                     caption.delay(options.captionDelay).fadeIn(fadeSpeed, fadeEasing);
+
                   } else {
-                    caption = $(this).find('.slider_caption');
+                    caption = $(this).find('.slider-caption');
                     if(options.captionAnimation === 'slide')
                     { 
-                      caption.animate({
-                        'top': '-='+$(this).outerWidth()
+                      caption.show().animate({
+                        'top': '-=' + caption.outerHeight()
                       });
                     } else {
                       caption.hide().css({'top': '-='+$(this).outerWidth()}).fadeIn();
@@ -111,76 +175,8 @@
                   }
                   options.loadedCallback.call($this);
                 });
-              });
             } else {
-              controller.children().css({
-                  position: 'absolute',
-                  top: maxHeight,
-                  left: 0,
-                  zIndex: 0,
-                  display: 'none'
-                });
-
-              controller.css({
-                position: 'relative',
-                height: (maxHeight*3),
-                width: totalWidth,
-                top: -(maxHeight)
-              });
-
-              $('.'+options.slideContainer, $this).css({
-                display: 'block'
-              });
-        
-              controller.children().eq(startSlide).fadeIn(options.fadeSpeed, options.fadeEasing, function(){
-                loaded = true;
-                if(options.customCaption.length !== 0)
-                {
-                  caption = $(this).find(options.customCaption)
-                  caption.delay(options.captionDelay).fadeIn(options.fadeSpeed, options.fadeEasing);
-                } else {
-                  caption = $(this).find('.slider-caption');
-                  if (options.captionAnimation === 'slide')
-                  {
-                    caption.animate({
-                      'top': '-='+$(this).outerWidth()
-                    });
-                  } else {
-                    caption.hide().css({'top': '-='+$(this).outerWidth()}).fadeIn();
-                  }
-                }
-
-                options.loadedCallback.call($this);
-              });
-            }
-          }
-
-          else {
-
-            //Display slide container
-            $('.'+options.slideContainer, $this).css({
-              display: 'block'
-            });
-
-            if(options.preload && controller.find('img').eq(startSlide).length)
-            {
-              $('.' + options.slideContainer, $this).css('background', 'url(' + options.preloadImage + ') 50% 50%');
-              var img = controller.find('img').eq(startSlide),
-                  src = img.attr('src');
-
-              img.attr('src', src + '?' + (new Date()).getTime()).load(function(e){
-
-                //Positioning set up for horizontal display
-                totalWidth = controller.children().outerWidth();
-
-                controller.children().css({
-                  position: 'absolute',
-                  top: 0,
-                  left: controller.children().outerWidth(),
-                  zIndex: 0,
-                  display: 'none'
-                });
-                //Create carousel of 3 times length of slides
+              //Create carousel of 3 times length of slides
                 controller.css({
                     position: 'relative',
                     width: (totalWidth*3),
@@ -195,19 +191,22 @@
                     zIndex: 5
                   });
 
+                  generateCaptions();
+
                   //Display first caption (if it exists)
                   //Check if custom caption class was defined, and if so, fade in that
                   //Otherwise, use built in caption (title attribute from element)
                   if(options.customCaption.length !== 0)
                   {
                     caption = controller.find(options.customCaption).eq(startSlide);
-                    caption.delay(options.captionDelay).fadeIn(options.fadeSpeed, options.fadeEasing)
+                    caption.delay(options.captionDelay).fadeIn(options.fadeSpeed, options.fadeEasing);
+
                   } else {
                     caption = controller.find('.slider-caption').eq(startSlide);
                     if(options.captionAnimation === 'slide')
                     {
                       caption.animate({
-                          'top': '-='+caption.outerHeight()
+                          'top': '-=' + caption.outerHeight()
                         }, 300, 'swing');
                       options.loadedCallback.call($this);
                     } else {
@@ -215,74 +214,54 @@
                     }
                   }
                 });
-              })
-            } else {
-              controller.children().css({
-                position: 'absolute',
-                top: 0,
-                left: controller.children().outerWidth(),
-                zIndex: 0,
-                display: 'none'
-              });
-              //Create carousel of 3 times length of slides
-              controller.css({
-                  position: 'relative',
-                  width: (totalWidth*3),
-                  height: maxHeight,
-                  left: -(totalWidth)
-                });
-              //If no preload, just fade in the first slide
-              controller.children().eq(startSlide).fadeIn(options.fadeSpeed, options.fadeEasing, function(){
-                loaded = true;
-                $(this).css({
-                  zIndex: 5
-                });
-                if(options.customCaption.length !== 0)
-                {
-                  caption = controller.find(options.customCaption).eq(startSlide);
-                  caption.delay(options.captionDelay).fadeIn(options.fadeSpeed, options.fadeEasing)
-                } else {
-                  caption = controller.find('.slider-caption').eq(startSlide);
-                  if(options.captionAnimation === 'slide')
-                  {
-                    caption.animate({
-                        'top': '-='+caption.outerHeight()
-                      }, 300, 'swing');
-                    options.loadedCallback.call($this);
-                  } else {
-                    caption.hide().css({'top': '-='+caption.outerHeight()}).fadeIn();
-                  }
-                }
-              });
             }
-            
-          //End horizontal slide setup
           }
 
           //Generate link for each page if pagination is set to true
           if(options.pagination) {
-            $paginationWrapper = $('<div class="'+options.paginationClass+'"/>').appendTo($this).css({
-              textAlign: options.paginationPosition
-            });
-            pagination = $('.'+options.paginationClass, $this)
-            slides.each(function(index, elem){
-              pagination.append('<a href="#" class="'+options.paginationStyle+'">' + '<span>' + index + '</span>' + '</a>')
-            });
-            pagination.children().click(function(event){
-              event.preventDefault();
-              if(!$(this).hasClass('active'))
+            if(options.bootstrap)
+            {
+              $paginationWrapper = $('<div class="pagination" />').appendTo($this);
+              if(options.paginationClass !== 'glide-pagination')  $paginationWrapper.addClass(options.paginationClass);
+              switch(options.paginationPosition)
               {
-                if(options.autoPlay)
-                {
-                  $this.glide('stop');  
-                }
-                $this.glide('to', $(this).index());
-                if(options.autoPlay)
-                {
-                  $this.glide('start');
-                }
+                case 'center':
+                  $paginationWrapper.addClass('pagination-centered');
+                  break;
+                case 'right':
+                  $paginationWrapper.addClass('pagination-right');
+                  break;
               }
-            }).eq(options.startSlide).addClass('active')
+              $pageList = $('<ul/>').appendTo($paginationWrapper);
+              slides.each(function(index, elem){
+                $pageList.append('<li><a href="#">' + (index + 1) + '</a></li>');
+              });
+              pagination = $pageList;
+            } else {
+              $paginationWrapper = $('<div class="' + options.paginationClass + '"/>').appendTo($this).css({
+                textAlign: options.paginationPosition
+              });
+              pagination = $('.' + options.paginationClass, $this)
+              slides.each(function(index, elem){
+                pagination.append('<a href="#" class="' + options.paginationStyle + '">' + '<span>' + index + '</span>' + '</a>')
+              });
+            }
+            $this.css('height', '+=' + $paginationWrapper.outerHeight())
+              pagination.children().click(function(event){
+                event.preventDefault();
+                if(!$(this).hasClass('active'))
+                {
+                  if(options.autoPlay)
+                  {
+                    $this.glide('stop');  
+                  }
+                  $this.glide('to', $(this).index());
+                  if(options.autoPlay)
+                  {
+                    $this.glide('start');
+                  }
+                }
+              }).eq(options.startSlide).addClass('active');
           }
 
           //Generate next and previous links if nextPrevLinks is set to true
@@ -321,24 +300,46 @@
 
           //Finished initalizing
           //Call custom callback function
-          options.initCallback.call($this, options)
+          options.initCallback.call($this)
           return $this;
         }
 
-        //Generate captions if custom ones aren't defined
-        if(options.customCaption.length === 0)
+        function generateCaptions()
         {
-          controller.contents().find('img').each(function(index, ele){
-            title = $(ele).attr('title')
-            if(title !== undefined) {
-              if(title.indexOf('#') === 0)
-              {
-                title = $(title).html()
-              }
+          //Generate captions if custom ones aren't defined
+          if(options.customCaption.length === 0)
+          {
+            controller.contents().find('img').each(function(index, ele){
+              title = $(ele).attr('title')
+              if(title !== undefined) {
+                if(title.indexOf('#') === 0)
+                {
+                  title = $(title).html()
+                }
 
-              createCaption($(ele), title, index)
-            }
-          });
+                createCaption($(ele), title, index)
+              }
+            });
+          }
+        }
+
+        //Generate caption elements and insert after corresponding slide
+        function createCaption(slide, content, index)
+        {
+          content = $('<div class="slider-caption"><div>'+content+'</div></div>');
+          slide.after(content);
+          if(options.orientation === 'horizontal')
+          {
+            content.css({
+              top: controller.height()
+            });
+          } else {
+            content.css({
+              display: 'none',
+              top: $('.' + options.slideContainer).height()
+            });
+          }
+          
         }
 
         //Enable keyboard navigation using the right and left arrows if user sets keyboardNav: true
@@ -359,16 +360,6 @@
           });
         }
 
-        //Generate caption elements and insert after corresponding slide
-        function createCaption(slide, content, index)
-        {
-          content = $('<div class="slider-caption"><div>'+content+'</div></div>');
-          slide.after(content);
-          content.css({
-            top: controller.height()
-          });
-        }
-
         //animate function
         function animate(direction, animation, slide, clicked)
         {
@@ -381,8 +372,8 @@
                 nextSlide = (currentSlide === totalSlides) ? 0 : currentSlide + 1;
                 if (options.orientation === 'vertical')
                 {
-                  position = maxHeight;
-                  direction = position;
+                  position = 0;
+                  direction = 0;
                 }
                 else
                 {
@@ -395,8 +386,8 @@
                 previousSlide = currentSlide;
                 nextSlide = ((currentSlide - 1) === -1) ? (totalSlides) : (currentSlide - 1)
                 if (options.orientation === 'vertical') {
-                  position = maxHeight;
-                  direction = position;
+                  position = maxHeight*2;
+                  direction = -position;
                 }
                 else {
                   position = 0;
@@ -412,8 +403,8 @@
 
                 if(nextSlide > previousSlide) {
                   if (options.orientation === 'vertical') {
-                    position = maxHeight;
-                    direction = position;
+                    position = 0;
+                    direction = 0;
                   }
                   else {
                     position = totalWidth*2;
@@ -422,8 +413,8 @@
                 }
                 else {
                   if (options.orientation === 'vertical') {
-                    position = maxHeight;
-                    direction = position;
+                    position = maxHeight*2;
+                    direction = -position;
                   }
                   else {
                     position = 0;
@@ -434,7 +425,7 @@
                 break;
             }
 
-            options.animationStart.call($this, currentSlide, controller.children().eq(currentSlide));
+            options.animationStart.call($this, currentSlide);
 
             //Crossfader
             if(animation === 'fade') {
@@ -456,7 +447,7 @@
                 handleCaptionAnimation(nextSlide, true);
 
                 animating = false;
-                options.animationEnd.call($this, currentSlide, controller.children().eq(currentSlide));
+                options.animationEnd.call($this, currentSlide);
               })
             }
 
@@ -464,36 +455,41 @@
             else {
               if(options.orientation === 'vertical')
               {
-                //Vertical Slider
-
                 controller.children().eq(nextSlide).css({
-                  top: 0,
+                  top: position,
                   display: 'block'
                 });
 
-                controller.animate({
-                  top: 0
-                }, options.slideSpeed, options.slideEasing, function(){
-                  controller.css({
-                    top: -maxHeight
-                  });
+                handleCaptionAnimation(previousSlide, false);
 
-                  controller.children().eq(nextSlide).css({
-                    top: maxHeight,
-                    zIndex: 5
-                  });
+                // Timeout vertical animation until caption is hidden so as not to see it moving
+                setTimeout(function(){
+                  controller.animate({
+                    top: direction
+                  }, options.slideSpeed, options.slideEasing, function(){
+                    controller.css({
+                      top: -maxHeight
+                    });
 
-                  controller.children().eq(previousSlide).css({
-                    top: maxHeight,
-                    display: 'none',
-                    zIndex: 0
+                    controller.children().eq(nextSlide).css({
+                      top: maxHeight,
+                      zIndex: 5
+                    });
+
+                    controller.children().eq(previousSlide).css({
+                      top: maxHeight,
+                      display: 'none',
+                      zIndex: 0
+                    });
+
+                    handleCaptionAnimation(nextSlide, true);
+
                   });
-                });
+                }, options.slideSpeed)
 
                 options.animationEnd.call();
                 animating = false;
               } else {
-                //Horizontal Slider
 
                 controller.children().eq(nextSlide).css({
                   left: position,
@@ -538,7 +534,12 @@
 
             // Update pagination
             if(options.pagination) {
-              $('.'+options.paginationClass, $this).children().eq(currentSlide).addClass('active').siblings('.active').removeClass('active');
+              if(options.bootstrap)
+              {
+                $('.pagination', $this).find('li').eq(currentSlide).addClass('active').siblings('.active').removeClass('active');
+              } else {
+                $('.' + options.paginationClass, $this).children().eq(currentSlide).addClass('active').siblings('.active').removeClass('active');  
+              }
             }
 
           }
@@ -556,7 +557,7 @@
               caption.delay(options.captionDelay).fadeIn(options.fadeSpeed, options.fadeEasing);
             } else {
               if(options.captionAnimation === 'fade') caption.hide().css({'top': '-='+caption.outerHeight()}).delay(options.captionDelay).fadeIn(options.fadeSpeed, options.fadeEasing);
-              else if(options.captionAnimation === 'slide') caption.delay(options.captionDelay).animate({top: controller.height() - caption.outerHeight()}, options.slideSpeed, options.slideEasing)
+              else if(options.captionAnimation === 'slide') caption.delay(options.captionDelay).show().animate({top: "-=" + caption.outerHeight()}, options.slideSpeed, options.slideEasing)
             }
           } else {
             if(options.customCaption.length !== 0)
@@ -565,7 +566,9 @@
               caption.delay(options.captionDelay).fadeOut(options.fadeSpeed, options.fadeEasing);
             } else {
               if(options.captionAnimation === 'fade') caption.fadeOut(options.fadeSpeed, options.fadeEasing, function(){$(this).css({top: controller.height()})});
-              else if(options.captionAnimation === 'slide') caption.animate({top: controller.height()}, options.slideSpeed, options.slideEasing);
+              else if(options.captionAnimation === 'slide') caption.animate({top: "+=" + caption.outerHeight()}, options.slideSpeed, options.slideEasing, function(){
+                $(this).hide();
+              });
             }
           }
         }
@@ -643,8 +646,7 @@
     **/
     get: function(option)
     {
-      $this = $(this);
-      options = ($this.data('options')) ? $this.data('options') : defaultSettings;
+      options = ($(this).data('options')) ? $(this).data('options') : defaultSettings;
       return (options[option]) ? options[option] : 'This option does not exist';
     }, 
 
@@ -657,10 +659,9 @@
     **/
     set: function(option, value)
     {
-      $this = $(this);
-      data = ($this.data('options')) ? $this.data('options') : null;
+      data = ($(this).data('options')) ? $(this).data('options') : null;
       data[option] = value;
-      return $this.trigger('sliderChange');
+      return $(this).trigger('sliderChange');
     },
 
     /**
@@ -742,11 +743,12 @@
     adjustHeightEasing: '',                 // height adjustment easing, extend options using jquery.easing plugin
     slideContainer    : 'slider_container', // class of container that holds slides
     currentClass      : 'current',          // class of slide that is active and showing
-    paginationClass   : 'pagination',       // class applied to each pagination link
+    paginationClass   : 'glide-pagination', // class applied to each pagination link
     nextClass         : 'next',             // class applied to next-slide link
     prevClass         : 'prev',             // class applied to previous-slide link
     browserHistory    : false,              // each slide transition will make use of pushState and enter a record in the user's browser history **not recommended if autoPlay > 0**
     keyboardNav       : false,              // enable navigation with arrow keys
+    bootstrap         : false,              // experimental support for Twitter bootstrap integration
     initCallback      : function(){},       // callback function fired after carousel is initialized
     loadedCallback    : function(){},       // callback function fired after slides are loaded
     animationStart    : function(){},       // callback function fired before each animation

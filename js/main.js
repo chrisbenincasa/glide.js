@@ -6,37 +6,41 @@ $(document).ready(function(e){
     'examples'  : $('#examples').offset().top - 40,
     'docs'      : $('#docs').offset().top - 40,
     'download'  : $('#download').offset().top - 40
-  }
+  },
+  navigating = false;
   $(window).on('scroll', function(e){
     var scroll = $('body').scrollTop(), link;
-    if((scroll >= 0 && scroll < scrollPositions['summary']) || scroll < 0)
-    { 
-      link = 'home_link';
-    }
-    else if(scroll >= scrollPositions['summary'] && scroll < scrollPositions['how'])
+    if(!navigating)
     {
-      link = 'summary_link';
-    }
-    else if(scroll >= scrollPositions['how'] && scroll < scrollPositions['examples'])
-    {
-      link = 'how_link';
-    }
-    else if(scroll >= scrollPositions['examples'] && scroll < scrollPositions['docs'])
-    {
-      link = 'examples_link';
-    }
-    else if(scroll >= scrollPositions['docs'] && scroll < scrollPositions['download'])
-    {
-      link = 'docs_link';
-    }
-    else {
-      link = 'download_link';
-    }
+      if((scroll >= 0 && scroll < scrollPositions['summary']) || scroll < 0)
+      { 
+        link = 'home_link';
+      }
+      else if(scroll >= scrollPositions['summary'] && scroll < scrollPositions['how'])
+      {
+        link = 'summary_link';
+      }
+      else if(scroll >= scrollPositions['how'] && scroll < scrollPositions['examples'])
+      {
+        link = 'how_link';
+      }
+      else if(scroll >= scrollPositions['examples'] && scroll < scrollPositions['docs'])
+      {
+        link = 'examples_link';
+      }
+      else if(scroll >= scrollPositions['docs'] && scroll < scrollPositions['download'])
+      {
+        link = 'docs_link';
+      }
+      else {
+        link = 'download_link';
+      }  
 
-    if(!$('.'+link).hasClass('active_link'))
-    {
-      $('.nav_inner a').removeClass('active_link');
-      $('.'+link).addClass('active_link');
+      if(!$('.'+link).hasClass('active_link'))
+      {
+        $('.nav_inner a').removeClass('active_link');
+        $('.'+link).addClass('active_link');
+      }
     }
 
   });
@@ -44,9 +48,14 @@ $(document).ready(function(e){
     e.preventDefault();
     $this = $(this);
     $section = $($this.attr('href'));
+    $this.siblings().removeClass('active_link');
+    $this.addClass('active_link');
     scroll = $section.offset();
+    navigating = true;
     $('html,body').animate({
       scrollTop: scroll.top - 40
-    })
-  });  
+    }, function(){
+      navigating = false;
+    });
+  }); 
 });

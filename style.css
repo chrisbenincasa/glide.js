@@ -95,14 +95,25 @@ div.nav_inner a
   vertical-align: middle;
   line-height: 35px;
   padding: 0 5px;
-  -webkit-transition: background-color 0.33s, color 0.33s;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  -ms-transition: none;
+  transition: none;
+}
+
+div.nav_inner a:hover
+{
+  /*-webkit-transition: background-color 0.33s, color 0.33s;
   -moz-transition: background-color 0.33s, color 0.33s;
   -o-transition: background-color 0.33s, color 0.33s;
   -ms-transition: background-color 0.33s, color 0.33s;
-  transition: background-color 0.33s, color 0.33s;
+  transition: background-color 0.33s, color 0.33s;*/
+  /*background-color: steelblue;
+  color: white;*/
 }
 
-div.nav_inner a.active_link, div.nav_inner a:hover
+div.nav_inner a.active_link
 {
   background-color: steelblue;
   color: white;
@@ -120,14 +131,15 @@ div#slider_example
 {
   width: 900px;
   height: 400px;
-  background: gray;
   box-shadow: 1px 2px 5px #333;
   margin: 0 auto;
 }
 
-.slider_container
+div.slider_container
 {
-  margin-bottom: 7px;
+  width: 900px;
+  height: 400px;
+  /*margin-bottom: 7px;*/
 }
 
 .pagination a

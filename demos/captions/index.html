@@ -4,7 +4,7 @@
   <title>Glide.js Captions Example</title>
   <link rel="stylesheet" type="text/css" href="../../glide.css">
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-  <script type="text/javascript" src="../../js/glide.js"></script>
+  <script type="text/javascript" src="../../glide.js"></script>
   <style type="text/css">
     #caption_slider
     {
@@ -16,7 +16,7 @@
     .slider_container
     {
       width: 100%;
-      height: inherit;
+      height: 427px;
     }
 
     .slider-caption
@@ -24,6 +24,11 @@
       font-family: Helvetica, sans-serif;
     }
 
+    pre
+    {
+      width: 800px;
+      margin: 0 auto;
+    }
   </style>
 </head>
 <body>
@@ -40,10 +45,57 @@
       </div>
     </div>
   </div>
+  <pre>
+    <code>
+&lt;style type="text/css"&gt;
+    #caption_slider
+    {
+      width: 640px;
+      height: 427px;
+      margin: 30px auto 0;
+    }
+
+    .slider_container
+    {
+      width: 100%;
+      height: 427px;
+    }
+
+    .slider-caption
+    {
+      font-family: Helvetica, sans-serif;
+    }
+
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id="caption_slider"&gt;
+    &lt;div class="slider_container"&gt;
+      &lt;div class="slide"&gt;
+        &lt;img title="Captions are cool!!" src="http://bit.ly/N0RxU7" /&gt;
+      &lt;/div&gt;
+      &lt;div class="slide"&gt;
+        &lt;img title="Just add a title element to an image&hellip;" src="http://bit.ly/NnJTsW" /&gt;
+      &lt;/div&gt;
+      &lt;div class="slide"&gt;
+        &lt;img title="Or even define your own custom captions!" src="http://bit.ly/Ni2OB4" /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;script type="text/javascript"&gt;
+    $('#caption_slider').glide({
+      preload: true,
+      orientation: 'vertical'
+      autoPlay: 5000
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+    </code>
+  </pre>
   <script type="text/javascript">
     $('#caption_slider').glide({
       preload: true,
-      preloadImage: '../imgs/loading.gif',
+      orientation: 'vertical',
       autoPlay: 5000
     });
   </script>
