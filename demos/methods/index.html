@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+  <title>Glide.js Methods Example</title>
+  <link rel="stylesheet" type="text/css" href="example_icons.css">
+  <link rel="stylesheet" type="text/css" href="../../glide.css">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script type="text/javascript" src="../../glide.js"></script>
+  <style type="text/css">
+    #methods_slider
+    {
+      width: 640px;
+      height: 427px;
+      margin: 30px auto 0;
+    }
+
+    .slider_container
+    {
+      width: 100%;
+      height: 427px;
+    }
+
+    .method_buttons
+    {
+      width: 640px;
+      margin: 30px auto 0;
+      text-align: center;
+    }
+
+    .method_calls
+    {
+      width: 600px;
+      margin: 20px auto;
+      height: 200px;
+      background-color: lightgray;
+      overflow-y: scroll;
+      padding: 10px;
+    }
+
+    button:hover
+    {
+      cursor: pointer;
+    }
+
+    pre
+    {
+      width: 800px;
+      margin: 0 auto;
+    }
+
+    ul
+    {
+      margin-top: 0;
+      padding-left: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="methods_slider">
+    <div class="slider_container">
+      <div class="slide">
+        <img src="http://farm8.staticflickr.com/7019/6838765469_a537cc8e7e_z_d.jpg" />
+      </div>
+      <div class="slide">
+        <img src="http://farm8.staticflickr.com/7164/6838764583_45d3706ec8_z_d.jpg" />
+      </div>
+      <div class="slide">
+        <img src="http://farm7.staticflickr.com/6063/6128509913_cbfbd6b8f6_z_d.jpg" />
+      </div>
+    </div>
+  </div>
+  <div class="method_buttons">
+    <a class="btn" id="previous_button"><i style="margin-right: 3px;" class="icon-backward"></i>Previous</a>
+    <a class="btn" id="start_button"><i class="icon-play"></i>Start</a>
+    <a class="btn" id="pause_button"><i class="icon-pause"></i>Pause</a>
+    <a class="btn" id="next_button"><i class="icon-forward"></i>Next</a>
+  </div>
+  <div class="method_calls">
+    <code>
+      <ul class="method_call_list">
+      </ul>
+    </code>
+  </div>
+  <script type="text/javascript">
+    var slider = $('#methods_slider').glide({
+      preload: true
+    });
+
+    $('a#start_button').click(function(){
+      slider.glide('start');
+      $('<li/>').appendTo($('.method_call_list')).text('$(\'#methods_slider\').glide(\'start\'); ');
+    });
+
+    $('a#pause_button').click(function(){
+      slider.glide('stop');
+      $('<li/>').appendTo($('.method_call_list')).text('$(\'#methods_slider\').glide(\'stop\'); ');
+    });
+
+    $('a#previous_button').click(function(){
+      slider.glide('prev');
+      $('<li/>').appendTo($('.method_call_list')).text('$(\'#methods_slider\').glide(\'prev\'); ');
+    });
+
+    $('a#next_button').click(function(){
+      slider.glide('next');
+      $('<li/>').appendTo($('.method_call_list')).text('$(\'#methods_slider\').glide(\'next\'); ');
+    });
+  </script>
+</body>
+</html>

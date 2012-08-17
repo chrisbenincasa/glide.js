@@ -15,12 +15,12 @@
   width: 100%;
 }
 
-.pagination
+.glide-pagination
 {
   text-align: center;
 }
 
-.pagination a
+.glide-pagination a
 {
   display: inline-block;
   vertical-align: middle;
@@ -33,12 +33,12 @@
   transition: background-color 0.2s;
 }
 
-.pagination a span
+.glide-pagination a span
 {
   display: none;
 }
 
-.pagination a.circle
+.glide-pagination a.circle
 {
   height: 13px;
   width: 13px;
@@ -46,14 +46,14 @@
   margin-right: 3px;
 }
 
-.pagination a.square
+.glide-pagination a.square
 {
   width: 10px;
   height: 10px;
   margin-right: 3px;
 }
 
-.pagination a.diamond
+.glide-pagination a.diamond
 {
   width: 10px;
   height: 10px;
@@ -65,12 +65,12 @@
   -o-transform: rotate(45deg);
 }
 
-.pagination a:hover
+.glide-pagination a:hover
 {
   background-color: green;
 }
 
-.pagination a.active
+.glide-pagination a.active
 {
   background-color: steelblue;
 }

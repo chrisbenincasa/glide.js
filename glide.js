@@ -219,29 +219,49 @@
 
           //Generate link for each page if pagination is set to true
           if(options.pagination) {
-            $paginationWrapper = $('<div class="'+options.paginationClass+'"/>').appendTo($this).css({
-              textAlign: options.paginationPosition
-            });
-            pagination = $('.'+options.paginationClass, $this)
-            slides.each(function(index, elem){
-              pagination.append('<a href="#" class="'+options.paginationStyle+'">' + '<span>' + index + '</span>' + '</a>')
-            });
-            $this.css('height', '+=' + $paginationWrapper.outerHeight())
-            pagination.children().click(function(event){
-              event.preventDefault();
-              if(!$(this).hasClass('active'))
+            if(options.bootstrap)
+            {
+              $paginationWrapper = $('<div class="pagination" />').appendTo($this);
+              if(options.paginationClass !== 'glide-pagination')  $paginationWrapper.addClass(options.paginationClass);
+              switch(options.paginationPosition)
               {
-                if(options.autoPlay)
-                {
-                  $this.glide('stop');  
-                }
-                $this.glide('to', $(this).index());
-                if(options.autoPlay)
-                {
-                  $this.glide('start');
-                }
+                case 'center':
+                  $paginationWrapper.addClass('pagination-centered');
+                  break;
+                case 'right':
+                  $paginationWrapper.addClass('pagination-right');
+                  break;
               }
-            }).eq(options.startSlide).addClass('active')
+              $pageList = $('<ul/>').appendTo($paginationWrapper);
+              slides.each(function(index, elem){
+                $pageList.append('<li><a href="#">' + (index + 1) + '</a></li>');
+              });
+              pagination = $pageList;
+            } else {
+              $paginationWrapper = $('<div class="' + options.paginationClass + '"/>').appendTo($this).css({
+                textAlign: options.paginationPosition
+              });
+              pagination = $('.' + options.paginationClass, $this)
+              slides.each(function(index, elem){
+                pagination.append('<a href="#" class="' + options.paginationStyle + '">' + '<span>' + index + '</span>' + '</a>')
+              });
+            }
+            $this.css('height', '+=' + $paginationWrapper.outerHeight())
+              pagination.children().click(function(event){
+                event.preventDefault();
+                if(!$(this).hasClass('active'))
+                {
+                  if(options.autoPlay)
+                  {
+                    $this.glide('stop');  
+                  }
+                  $this.glide('to', $(this).index());
+                  if(options.autoPlay)
+                  {
+                    $this.glide('start');
+                  }
+                }
+              }).eq(options.startSlide).addClass('active');
           }
 
           //Generate next and previous links if nextPrevLinks is set to true
@@ -514,7 +534,12 @@
 
             // Update pagination
             if(options.pagination) {
-              $('.'+options.paginationClass, $this).children().eq(currentSlide).addClass('active').siblings('.active').removeClass('active');
+              if(options.bootstrap)
+              {
+                $('.pagination', $this).find('li').eq(currentSlide).addClass('active').siblings('.active').removeClass('active');
+              } else {
+                $('.' + options.paginationClass, $this).children().eq(currentSlide).addClass('active').siblings('.active').removeClass('active');  
+              }
             }
 
           }
@@ -718,11 +743,12 @@
     adjustHeightEasing: '',                 // height adjustment easing, extend options using jquery.easing plugin
     slideContainer    : 'slider_container', // class of container that holds slides
     currentClass      : 'current',          // class of slide that is active and showing
-    paginationClass   : 'pagination',       // class applied to each pagination link
+    paginationClass   : 'glide-pagination', // class applied to each pagination link
     nextClass         : 'next',             // class applied to next-slide link
     prevClass         : 'prev',             // class applied to previous-slide link
     browserHistory    : false,              // each slide transition will make use of pushState and enter a record in the user's browser history **not recommended if autoPlay > 0**
     keyboardNav       : false,              // enable navigation with arrow keys
+    bootstrap         : false,              // experimental support for Twitter bootstrap integration
     initCallback      : function(){},       // callback function fired after carousel is initialized
     loadedCallback    : function(){},       // callback function fired after slides are loaded
     animationStart    : function(){},       // callback function fired before each animation
