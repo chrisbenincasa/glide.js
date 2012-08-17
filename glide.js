@@ -246,7 +246,7 @@
                 pagination.append('<a href="#" class="' + options.paginationStyle + '">' + '<span>' + index + '</span>' + '</a>')
               });
             }
-            //$this.css('height', '+=' + $paginationWrapper.outerHeight())
+            $this.css('margin-bottom', '+=' + $paginationWrapper.outerHeight())
               pagination.children().click(function(event){
                 event.preventDefault();
                 if(!$(this).hasClass('active'))
