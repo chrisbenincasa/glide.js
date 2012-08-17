@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+  <title>Glide.js Captions Example</title>
+  <link rel="stylesheet" type="text/css" href="../../glide.css">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script type="text/javascript" src="../../glide.js"></script>
+  <style type="text/css">
+    body {
+      background: url(../imgs/bg.jpg);
+    }
+
+    .elaborate_slider_wrap {
+      width: 640px;
+      height: 427px;
+      margin: 0 auto;
+      border: 15px solid #f6f6f6;
+      box-shadow: 0 0 0 1px #8691A5, 0 3px 7px 1px #222;
+      border-radius: 10px;
+      border-bottom-width: 30px;
+    }
+
+    #elaborate_slider{
+      width: 640px;
+      height: 427px;
+    }
+
+    .slider_container {
+      width: 640px;
+      height: 427px;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="elaborate_slider_wrap">
+    <div id="elaborate_slider">
+      <div class="slider_container">
+        <div class="slide">
+          <img src="http://farm8.staticflickr.com/7019/6838765469_a537cc8e7e_z_d.jpg" />
+        </div>
+        <div class="slide">
+          <img src="http://farm8.staticflickr.com/7164/6838764583_45d3706ec8_z_d.jpg" />
+        </div>
+        <div class="slide">
+          <img src="http://farm7.staticflickr.com/6063/6128509913_cbfbd6b8f6_z_d.jpg" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    $('#elaborate_slider').glide({
+      preload: true,
+    });
+  </script>
+</body>
+</html>
