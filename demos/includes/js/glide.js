@@ -447,7 +447,7 @@
                 break;
             }
 
-            options.animationStart.call($this, previousSlide, currentSlide);
+            options.animationStart.call($this, currentSlide, controller.children().eq(currentSlide), previousSlide, controller.children().eq(previousSlide));
 
             //Crossfader
             if(animation === 'fade') {
@@ -469,7 +469,7 @@
                 handleCaptionAnimation(nextSlide, true);
 
                 animating = false;
-                options.animationEnd.call($this, previousSlide, currentSlide);
+                options.animationEnd.call($this, currentSlide, controller.children().eq(currentSlide), previousSlide, controller.children().eq(previousSlide));
               })
             }
 
@@ -509,7 +509,7 @@
                   });
                 }, options.slideSpeed)
 
-                options.animationEnd.call($this, previousSlide, currentSlide);
+                options.animationEnd.call($this, currentSlide, controller.children().eq(currentSlide), previousSlide, controller.children().eq(previousSlide));
                 animating = false;
               } else {
 
@@ -540,7 +540,7 @@
 
                   handleCaptionAnimation(nextSlide, true);
 
-                  options.animationEnd.call($this, previousSlide, currentSlide);
+                  options.animationEnd.call($this, currentSlide, controller.children().eq(currentSlide), previousSlide, controller.children().eq(previousSlide));
                   animating = false;
                 });
               }

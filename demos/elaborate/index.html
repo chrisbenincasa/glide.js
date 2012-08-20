@@ -82,11 +82,11 @@
           $('.foreground').first().delay(200).animate({top: '7px'});
         });
       },
-      animationStart: function(from, to)
+      animationStart: function(to, $to, from, $from)
       {
         $('.slider_controller', $(this)).find('.foreground').eq(from).animate({top: '500px'});
       },
-      animationEnd: function(from, to)
+      animationEnd: function(to, $to, from, $from)
       {
         $('.slide', $(this)).find('.foreground').eq(to).delay(200).animate({top: '7px'});
       }
