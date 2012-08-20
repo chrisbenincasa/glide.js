@@ -2,31 +2,49 @@
 <html>
 <head>
   <title>Glide.js Vertical Example</title>
-  <link rel="stylesheet" type="text/css" href="https://raw.github.com/chrisbenincasa/glide.js/master/glide.css">
+  <link rel="stylesheet" type="text/css" href="../includes/styles/bootstrap_custom.css">
+  <link rel="stylesheet" type="text/css" href="../includes/styles/glide.css">
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-  <script type="text/javascript" src="https://raw.github.com/chrisbenincasa/glide.js/master/glide.js"></script>
+  <script type="text/javascript" src="../includes/js/glide.js"></script>
   <style type="text/css">
     #vertical_slider
     {
       width: 500px;
       height: 500px;
       margin: 30px auto 0;
-    }
-
-    .slider_container
-    {
-      width: 500px;
-      height: 500px;
       margin-bottom: 10px;
       border: 5px solid royalblue;
       box-shadow: 0px 2px 6px #333;
       border-radius: 3px;
     }
 
-    .example_code_wrap
+    .slider_container
     {
       width: 500px;
-      margin: 25px auto 0;
+      height: 500px;
+    }
+
+    .glide-pagination {
+      margin-top: 8px;
+    }
+
+    .example_code
+    {
+      width: 500px;
+      display: none;
+    }
+
+    .source
+    {
+      width: 500px;
+      margin: 30px auto 0;
+      font-family: 'Helvetica Neue';
+    }
+
+    .button_wrap
+    {
+      width: 100%;
+      text-align: center;
     }
 
   </style>
@@ -34,13 +52,16 @@
 <body>
   <div id="vertical_slider">
     <div class="slider_container">
-      <img src="imgs/vertical_img.jpg" />
-      <img src="imgs/vertical_img2.jpg" />
-      <img src="imgs/vertical_img3.jpg" />
-      <img src="imgs/vertical_img4.jpg" />
+      <img src="../includes/imgs/vertical_img.jpg" />
+      <img src="../includes/imgs/vertical_img2.jpg" />
+      <img src="../includes/imgs/vertical_img3.jpg" />
+      <img src="../includes/imgs/vertical_img4.jpg" />
     </div>
   </div>
-  <div class="example_code_wrap">
+    <div class="source">
+      <div class="button_wrap">
+        <a href="#" class="btn toggle_source">View Source</a>
+      </div>
     <pre class="example_code">
       <code>
 &lt;!doctype html&gt;
@@ -90,6 +111,17 @@
       preload: true,
       orientation: 'vertical',
       autoPlay: 3000
+    });
+
+    $('.toggle_source').click(function(e){
+      e.preventDefault();
+      $('pre').slideToggle();
+      if($(this).hasClass('open'))
+      {
+        $(this).removeClass('open').text('View Source');
+      } else {
+        $(this).addClass('open').text('Hide Source');
+      } 
     });
   </script>
 </body>

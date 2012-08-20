@@ -1,0 +1,99 @@
+/*Default .slider_container to height & width of parent */
+.slider_container
+{
+  height: inherit;
+  width: 100%;
+}
+
+.glide-pagination
+{
+  text-align: center;
+  margin-top: 3px;
+}
+
+.glide-pagination a
+{
+  display: inline-block;
+  vertical-align: middle;
+  color: gray;
+  background-color: gray;
+  cursor: pointer;
+  -webkit-transition: background-color 0.2s;
+  -moz-transition: background-color 0.2s;
+  -o-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+}
+
+.glide-pagination a span
+{
+  display: none;
+}
+
+.glide-pagination a.circle
+{
+  height: 13px;
+  width: 13px;
+  border-radius: 10px;
+  margin-right: 3px;
+  text-indent: -9999px;
+}
+
+.glide-pagination a.square
+{
+  width: 10px;
+  height: 10px;
+  margin-right: 3px;
+  text-indent: -9999px;
+}
+
+.glide-pagination a.diamond
+{
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  text-indent: -9999px;
+}
+
+.glide-pagination a:hover
+{
+  background-color: green;
+}
+
+.glide-pagination a.active
+{
+  background-color: steelblue;
+}
+
+.slider-caption
+{
+  width: 100%;
+  display: block;
+  position: absolute;
+  background: black;
+  color: white;
+  opacity: 0.85;
+}
+
+.slider-caption div
+{
+  padding: 7px;
+}
+
+.slider-html-caption
+{
+  display: none;
+}
+
+/* Additional styles */
+
+a.next, a.prev
+{
+  display: inline-block;
+  vertical-align: middle;
+  height: 20px;
+}

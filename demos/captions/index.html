@@ -2,9 +2,11 @@
 <html>
 <head>
   <title>Glide.js Captions Example</title>
-  <link rel="stylesheet" type="text/css" href="https://raw.github.com/chrisbenincasa/glide.js/master/glide.css">
+  <link rel="stylesheet" type="text/css" href="../includes/styles/reset.css">
+  <link rel="stylesheet" type="text/css" href="../includes/styles/glide.css">
+  <link rel="stylesheet" type="text/css" href="../includes/styles/bootstrap_custom.css">
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-  <script type="text/javascript" src="https://raw.github.com/chrisbenincasa/glide.js/master/glide.js"></script>
+  <script type="text/javascript" src="../includes/js/glide.js"></script>
   <style type="text/css">
     #caption_slider
     {
@@ -24,10 +26,26 @@
       font-family: Helvetica, sans-serif;
     }
 
+    .source
+    {
+      width: 640px;
+      margin: 30px auto 0;
+      font-family: 'Helvetica Neue';
+    }
+
+    .button_wrap
+    {
+      width: 100%;
+      text-align: center;
+    }
+
     pre
     {
-      width: 800px;
+      width: 100%;
+      overflow: scroll;
       margin: 0 auto;
+      display: none;
+      white-space: pre;
     }
   </style>
 </head>
@@ -35,34 +53,38 @@
   <div id="caption_slider">
     <div class="slider_container">
       <div class="slide">
-        <img title="Captions are cool!!" src="http://farm8.staticflickr.com/7019/6838765469_a537cc8e7e_z_d.jpg" />
+        <img title="Captions are cool!!" 
+          src="http://farm8.staticflickr.com/7019/6838765469_a537cc8e7e_z_d.jpg" />
       </div>
       <div class="slide">
-        <img title="Just add a title element to an image&hellip;" src="http://farm8.staticflickr.com/7164/6838764583_45d3706ec8_z_d.jpg" />
+        <img title="Just add a title element to an image&hellip;" 
+          src="http://farm8.staticflickr.com/7164/6838764583_45d3706ec8_z_d.jpg" />
       </div>
       <div class="slide">
-        <img title="Or even define your own custom captions!" src="http://farm7.staticflickr.com/6063/6128509913_cbfbd6b8f6_z_d.jpg" />
+        <img title="Or even define your own custom captions!" 
+          src="http://farm7.staticflickr.com/6063/6128509913_cbfbd6b8f6_z_d.jpg" />
       </div>
     </div>
   </div>
+  <div class="source">
+    <div class="button_wrap">
+      <a href="#" class="btn toggle_source">View source</a>
+    </div>
   <pre>
     <code>
 &lt;style type="text/css"&gt;
-    #caption_slider
-    {
+    #caption_slider {
       width: 640px;
       height: 427px;
       margin: 30px auto 0;
     }
 
-    .slider_container
-    {
+    .slider_container {
       width: 100%;
       height: 427px;
     }
 
-    .slider-caption
-    {
+    .slider-caption {
       font-family: Helvetica, sans-serif;
     }
 
@@ -72,13 +94,16 @@
   &lt;div id="caption_slider"&gt;
     &lt;div class="slider_container"&gt;
       &lt;div class="slide"&gt;
-        &lt;img title="Captions are cool!!" src="http://bit.ly/N0RxU7" /&gt;
+        &lt;img title="Captions are cool!!" 
+              src="http://bit.ly/N0RxU7" /&gt;
       &lt;/div&gt;
       &lt;div class="slide"&gt;
-        &lt;img title="Just add a title element to an image&hellip;" src="http://bit.ly/NnJTsW" /&gt;
+        &lt;img title="Just add a title element to an image&hellip;" 
+              src="http://bit.ly/NnJTsW" /&gt;
       &lt;/div&gt;
       &lt;div class="slide"&gt;
-        &lt;img title="Or even define your own custom captions!" src="http://bit.ly/Ni2OB4" /&gt;
+        &lt;img title="Or even define your own custom captions!" 
+              src="http://bit.ly/Ni2OB4" /&gt;
       &lt;/div&gt;
     &lt;/div&gt;
   &lt;/div&gt;
@@ -92,11 +117,23 @@
 &lt;/body&gt;
     </code>
   </pre>
+</div>
   <script type="text/javascript">
     $('#caption_slider').glide({
       preload: true,
       orientation: 'vertical',
       autoPlay: 5000
+    });
+
+    $('.toggle_source').click(function(e){
+      e.preventDefault();
+      $('pre').slideToggle();
+      if($(this).hasClass('open'))
+      {
+        $(this).removeClass('open').text('View Source');
+      } else {
+        $(this).addClass('open').text('Hide Source');
+      } 
     });
   </script>
 </body>

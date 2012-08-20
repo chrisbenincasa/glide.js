@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+  <title>Glide.js Captions Example</title>
+  <link rel="stylesheet" type="text/css" href="../includes/styles/glide.css">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <!-- <script type="text/javascript" src="../includes/js/glide.js"></script> -->
+  <script type="text/javascript" src="../includes/js/glide.js"></script>
+  <style type="text/css">
+    body {
+      background: url(../includes/imgs/bg.jpg);
+      margin: 0;
+    }
+
+    #elaborate_slider { 
+      width: 800px;
+      height: 460px;
+      margin: 50px auto 0;
+    }
+
+    .slider_container {
+      width: 800px;
+      height: 460px;
+    }
+
+    .caption {
+      position: absolute;
+      top: 20px;
+      left: 40px;
+      width: 100px;
+      height: 30px;
+      box-shadow: 0 0 5px black;
+      z-index: 10;
+      background-color: white;
+      border-radius: 5px;
+      padding: 10px;
+    }
+
+    .foreground {
+      position: absolute;
+      top: 500px;
+      right: 10px;
+      z-index: 10;
+    }
+
+    .background {
+      height: 400px;
+      margin-top: 37px;
+      overflow: hidden;
+    }
+
+  </style>
+</head>
+<body>
+  <div id="elaborate_slider">
+    <div class="slider_container">
+      <div class="slide">
+        <div class="foreground">
+          <img src="imgs/iphone_hand_1.png" />
+        </div>
+        <div class="background">
+          <img src="../includes/imgs/2.jpg" />
+        </div>
+        <div class="caption">Test</div>
+      </div>
+      <div class="slide">
+        <img src="../includes/imgs/vertical_img2.jpg" />
+      </div>
+      <div class="slide">
+        <img src="../includes/imgs/vertical_img3.jpg" />
+      </div>
+    </div>
+  </div>
+  </div>
+  <script type="text/javascript">
+    slider = $('#elaborate_slider').glide({
+      preload: true,
+      customCaption: '.caption',
+      initCallback: function(){
+        $(this).css('background', '');
+        $(this).find('.slide .background > img').fadeTo(400, '0.85', function(){
+          $('.foreground').first().delay(200).animate({top: '7px'});
+        });
+      },
+      animationStart: function(from, to)
+      {
+        $('.slider_controller', $(this)).find('.foreground').eq(from).animate({top: '500px'});
+      },
+      animationEnd: function(from, to)
+      {
+        $('.slide', $(this)).find('.foreground').eq(to).delay(200).animate({top: '7px'});
+      }
+    });
+  </script>
+</body>
+</html>
