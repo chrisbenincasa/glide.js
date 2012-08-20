@@ -20,7 +20,7 @@
 
     .slider_container {
       width: 800px;
-      height: 483px;
+      height: 460px;
     }
 
     .caption {
@@ -41,6 +41,12 @@
       top: 500px;
       right: 10px;
       z-index: 10;
+    }
+
+    .background {
+      height: 400px;
+      margin-top: 37px;
+      overflow: hidden;
     }
 
   </style>
@@ -73,13 +79,16 @@
       initCallback: function(){
         $(this).css('background', '');
         $(this).find('.slide .background > img').fadeTo(400, '0.85', function(){
-          console.log($(this).closest('.foreground'))
-          $('.foreground').first().delay(200).animate({top: '30px'});
+          $('.foreground').first().delay(200).animate({top: '7px'});
         });
       },
-      animationEnd: function(currentSlide)
+      animationStart: function(from, to)
       {
-        
+        $('.slider_controller', $(this)).find('.foreground').eq(from).animate({top: '500px'});
+      },
+      animationEnd: function(from, to)
+      {
+        $('.slide', $(this)).find('.foreground').eq(to).delay(200).animate({top: '7px'});
       }
     });
   </script>

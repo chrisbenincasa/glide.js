@@ -72,7 +72,7 @@
           if(options.orientation === 'vertical') {
             if(options.preload && controller.find('img').eq(startSlide).length) {
               $('.'+options.slideContainer, $this).css({
-                background: 'url(' + options.preloadImage + ') 50% 50%'
+                background: 'url(' + options.preloadImage + ') no-repeat 50% 50%'
               });
 
               var img = controller.find('img').eq(startSlide),
@@ -107,7 +107,7 @@
 
             if(options.preload && controller.find('img').eq(startSlide).length)
             {
-              $('.' + options.slideContainer, $this).css('background', 'url(' + options.preloadImage + ') 50% 50%');
+              $('.' + options.slideContainer, $this).css('background', 'url(' + options.preloadImage + ') no-repeat 50% 50%');
               var img = controller.find('img').eq(startSlide),
                   src = img.attr('src');
 
@@ -447,7 +447,7 @@
                 break;
             }
 
-            options.animationStart.call($this, currentSlide);
+            options.animationStart.call($this, previousSlide, currentSlide);
 
             //Crossfader
             if(animation === 'fade') {
@@ -469,7 +469,7 @@
                 handleCaptionAnimation(nextSlide, true);
 
                 animating = false;
-                options.animationEnd.call($this, currentSlide);
+                options.animationEnd.call($this, previousSlide, currentSlide);
               })
             }
 
@@ -509,7 +509,7 @@
                   });
                 }, options.slideSpeed)
 
-                options.animationEnd.call($this, currentSlide);
+                options.animationEnd.call($this, previousSlide, currentSlide);
                 animating = false;
               } else {
 
@@ -540,7 +540,7 @@
 
                   handleCaptionAnimation(nextSlide, true);
 
-                  options.animationEnd.call($this, currentSlide);
+                  options.animationEnd.call($this, previousSlide, currentSlide);
                   animating = false;
                 });
               }
