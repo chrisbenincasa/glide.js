@@ -226,6 +226,11 @@ span.option_name
   font-size: 16pt;
 }
 
+span.doctype
+{
+  color: gray;
+}
+
 span.tag
 {
   color: darkblue;
@@ -233,17 +238,28 @@ span.tag
 
 span.attribute
 {
-  color: darkgreen;
+  color: teal;
 }
 
 span.string
 {
-  color: goldenrod;
+  color: crimson;
 }
 
 span.selector
 {
-  color: teal;
+  color: #458;
+  font-weight: bold;
+}
+
+span.integer, span.css_keyword
+{
+  color: magenta;
+}
+
+span.type
+{
+  font-weight: bold;
 }
 
 span.default

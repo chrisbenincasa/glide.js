@@ -8,6 +8,7 @@ $(document).ready(function(e){
     'download'  : $('#download').offset().top - 40
   },
   navigating = false;
+  
   $(window).on('scroll', function(e){
     var scroll = $('body').scrollTop(), link;
     if(!navigating)
@@ -44,16 +45,17 @@ $(document).ready(function(e){
     }
 
   });
-  $('div.nav a').click(function(e){
+
+  $('div.nav a, a.home_link').click(function(e){
     e.preventDefault();
     $this = $(this);
     $section = $($this.attr('href'));
-    $this.siblings().removeClass('active_link');
+    $this.siblings().add('a.home_link').removeClass('active_link');
     $this.addClass('active_link');
-    scroll = $section.offset();
+    scroll = ($this.hasClass('home_link')) ? 0 : $section.offset().top
     navigating = true;
     $('html,body').animate({
-      scrollTop: scroll.top - 40
+      scrollTop: scroll - 40
     }, function(){
       navigating = false;
     });

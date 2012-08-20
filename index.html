@@ -14,7 +14,7 @@
   <div class="top_nav">
     <div class="nav_inner">
       <div class="left">
-        <a class="home_link active_link" href="#">Glide.js</a>
+        <a class="home_link active_link" href="#top">Glide.js</a>
       </div>
       <div class="right nav">
         <a class="summary_link" href="#summary">Summary</a>
@@ -26,7 +26,7 @@
       <div class="clearfix"></div>
     </div>
   </div>
-  <div class="main_body_wrap">
+  <div id="top" class="main_body_wrap">
     <div id="slider_example">
       <div class="slider_container">
         <div class="slide">
@@ -57,28 +57,28 @@
       <p>Glide.js couldn't be easier to integrate into your website. Here's a short sample of how to use Glide.js.</p>
       <pre>
 <code>
-  &lt;!doctype html&gt;
+  <span class="doctype">&lt;!doctype html&gt;</span>
   <span class="tag">&lt;html&gt;</span>
   <span class="tag">&lt;head&gt;</span>
     <span class="tag">&lt;link</span> <span class="attribute">rel</span>=<span class="string">"stylesheet"</span> <span class="attribute">type</span>=<span class="string">"text/css"</span> <span class="attribute">href</span>=<span class="string">"glide.css"</span> <span class="tag">/&gt;</span>
-    <span class="tag">&lt;script</span> <span class="attribute">type</span>=<span class="string">"text/javascript"</span> <span class="attribute">src</span>=<span class="string">"jquery-1.7.2.js"</span><span class="tag">&gt;&lt;/script&gt;</span>
-    <span class="tag">&lt;script</span> <span class="attribute">type</span>=<span class="string">"text/javascript"</span> <span class="attribute">src</span>=<span class="string">"glide.js"</span><span class="tag">&gt;&lt;/script&gt;</span>
     <span class="tag">&lt;style</span> <span class="attribute">type</span>=<span class="string">"text/css"</span><span class="tag">&gt;</span>
 
-      <span class="tag">div</span><span class="selector">#slider</span>
+      <span class="selector">#slider</span>
       {
-        width: 900px;
-        height: 400px;
+        <span class="attribute">width</span>: <span class="integer">900</span><span class="type">px</span>;
+        <span class="attribute">height</span>: <span class="integer">400</span><span class="type">px</span>;
       }
 
-      <span class="tag">div</span><span class="selector">.slider_container</span>
+      <span class="selector">.slider_container</span>
       {
-        width: 100%;
-        height: inherit;
-        display: block;
+        <span class="attribute">width</span>: <span class="integer">100</span><span class="type">%</span>;
+        <span class="attribute">height</span>: <span class="css_keyword">inherit</span>;
+        <span class="attribute">display</span>: <span class="css_keyword">block</span>;
       }
 
     <span class="tag">&lt;/style&gt;</span>
+    <span class="tag">&lt;script</span> <span class="attribute">type</span>=<span class="string">"text/javascript"</span> <span class="attribute">src</span>=<span class="string">"jquery-1.7.2.js"</span><span class="tag">&gt;&lt;/script&gt;</span>
+    <span class="tag">&lt;script</span> <span class="attribute">type</span>=<span class="string">"text/javascript"</span> <span class="attribute">src</span>=<span class="string">"glide.js"</span><span class="tag">&gt;&lt;/script&gt;</span>
   <span class="tag">&lt;/head&gt;</span>
   <span class="tag">&lt;body&gt;</span>
       <span class="tag">&lt;div</span> <span class="attribute">id</span>=<span class="string">"slider"</span>&gt;
@@ -95,7 +95,7 @@
         <span class="tag">&lt;/div&gt;</span>
       <span class="tag">&lt;/div&gt;</span>
       <span class="tag">&lt;script</span> <span class="attribute">type</span>=<span class="string">"text/javascript"</span><span class="tag">&gt;</span>
-        $('#slider').glide();
+        $(<span class="string">'#slider'</span>).glide();
       <span class="tag">&lt;/script&gt;</span>
   <span class="tag">&lt;/body&gt;</span>
   <span class="tag">&lt;/html&gt;</span>
