@@ -325,7 +325,7 @@
 
           //Finished initalizing
           //Call custom callback function
-          options.initCallback.call($this)
+          options.initCallback.call($this, options)
           return $this;
         }
 
