@@ -32,7 +32,7 @@
       options = $.extend({}, defaultSettings, options);
       return this.each(function(){
         $this = $(this);
-        $('.'+options.slideContainer, $this).children().wrapAll('<div class="slider_controller" />');
+        $('.' + options.slideContainer, $this).children().wrapAll('<div class="slider_controller" />');
 
         var controller    = $('.slider_controller', $this),
             slides        = controller.children(),
@@ -175,7 +175,7 @@
                   loaded = true;
                   if(options.customCaption.length !== 0)
                   {
-                    caption = $(this).find(options.customCaption);
+                    caption = $this.find(options.customCaption);
 
                     //only fading is supported for custom captions at this time
                     caption.delay(options.captionDelay).fadeIn(fadeSpeed, fadeEasing);
@@ -220,9 +220,10 @@
                   //Otherwise, use built in caption (title attribute from element)
                   if(options.customCaption.length !== 0)
                   {
-                    caption = controller.find(options.customCaption).eq(startSlide);
-                    caption.delay(options.captionDelay).fadeIn(options.fadeSpeed, options.fadeEasing);
-
+                    caption = $this.find(options.customCaption).eq(startSlide);
+                    caption.delay(options.captionDelay).fadeIn(options.fadeSpeed, options.fadeEasing, function(){
+                      options.loadedCallback.call($this);
+                    });
                   } else {
                     caption = controller.find('.slider-caption').eq(startSlide);
                     if(options.captionAnimation === 'slide')
@@ -232,10 +233,12 @@
                         }, 300, 'swing');
                       options.loadedCallback.call($this);
                     } else {
-                      caption.hide().css({'top': '-='+caption.outerHeight()}).fadeIn();
+                      caption.hide().css({'top': '-='+caption.outerHeight()}).fadeIn(300, function(){
+                        options.loadedCallback.call($this);
+                      });
                     }
                   }
-                });
+              });
             }
           }
 
@@ -511,6 +514,7 @@
 
                 options.animationEnd.call($this, currentSlide, controller.children().eq(currentSlide), previousSlide, controller.children().eq(previousSlide));
                 animating = false;
+
               } else {
 
                 controller.children().eq(nextSlide).css({
@@ -519,7 +523,6 @@
                 });
 
                 handleCaptionAnimation(previousSlide, false)
-
                 controller.animate({
                   left: direction
                 }, options.slideSpeed, options.slideEasing, function(){
@@ -570,7 +573,7 @@
         // This function handles the caption transitions when the slide is changed
         function handleCaptionAnimation(captionIndex, show)
         {
-          var caption = (options.customCaption.length !== 0) ? controller.find(options.customCaption).eq(captionIndex) : controller.find('.slider-caption').eq(captionIndex);
+          var caption = (options.customCaption.length !== 0) ? $this.find(options.customCaption).eq(captionIndex) : controller.find('.slider-caption').eq(captionIndex);
           if(show)
           {
             if(options.customCaption.length !== 0)
