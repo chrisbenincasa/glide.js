@@ -51,6 +51,7 @@ pre
 h2
 {
   font-size: 14pt;
+  margin-bottom: 5px;
 }
 
 h3
@@ -61,7 +62,9 @@ h3
 p
 {
   font-size: 13px;
-  margin-bottom: 3px;
+  margin: 10px 0 10px 25px;
+  width: 750px;
+  line-height: 20px;
 }
 
 div.top_nav
@@ -173,6 +176,12 @@ a.pause:hover
   padding-top: 0;
 }
 
+#summary p {
+  margin: 10px 0 10px 25px;
+  width: 750px;
+  line-height: 20px;
+}
+
 .section
 {
   border-bottom: thin solid lightgray;
@@ -194,6 +203,10 @@ div.section#docs h3
 {
   font-weight: normal;
   margin-bottom: 3px;
+}
+
+div.section#docs p, div.section#docs code {
+  margin: 0 0 3px 25px !important;
 }
 
 div#docs div.option_wrap

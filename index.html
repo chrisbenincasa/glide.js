@@ -3,7 +3,6 @@
 <head>
   <title>Glide.js</title>
   <link rel="stylesheet" type="text/css" href="reset.css">
-  <!-- <link rel="stylesheet" type="text/css" href="https://raw.github.com/chrisbenincasa/glide.js/master/glide.css"> -->
   <link rel="stylesheet" type="text/css" href="glide.css">
   <link rel="stylesheet" type="text/css" href="style.css">
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
@@ -50,7 +49,9 @@
     </div>
     <div id="summary" class="section">
       <a class="header_link" href="#summary">#</a><h1>Summary</h1>
-      <p>Glide.js is a compact</p>
+      <p>Glide.js is a simple, lightweight, multi-oriented, multi-directional jQuery carousel. It is accessable by developers of all skill levels to integrate this straight-foward, yet powerful, slider in their project. Out of the box, Glide.js comes with a large set of options that can be used to create any slider you can imagine!</p>
+      <p>Development continues to add features and fix bugs in Glide.js. If you're experiencing a bug, tell us about it <a href="https://github.com/chrisbenincasa/glide.js/issues">here!</a></p>
+      <p>Glide.js is compatible with all modern browsers and jQuery version 1.4+</p>
     </div>
     <div id="how" class="section">
       <a class="header_link" href="#how">#</a><h1>How?</h1>
@@ -273,14 +274,14 @@
           <p>Called after slides are loaded.</p>
         </div>
         <div class="option_wrap">
-          <h3><span class="option_name">animationStart(, )</span></h3>
+          <h3><span class="option_name">animationStart(currentSlideIndex, currentSlide, nextSlideIndex, nextSlide)</span></h3>
           <p>Called before every animation.</p>
-          <p>Passes the numerical index of the current slide and the jQuery object representing that slide.</p>
+          <p>Passes the numerical indexes of the current and next slides and the jQuery objects representing those slides.</p>
         </div>
         <div class="option_wrap">
-          <h3><span class="option_name">animationEnd(, )</span></h3>
+          <h3><span class="option_name">animationEnd(currentSlideIndex, currentSlide, nextSlideIndex, nextSlide)</span></h3>
           <p>Called after every animation.</p>
-          <p>Passes the numerical index of the current slide and the jQuery object representing that slide.</p>
+          <p>Passes the numerical indexes of the current and next slides and the jQuery objects representing those slides.</p>
         </div>
       </div>
       <div class="options_section">
