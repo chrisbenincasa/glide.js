@@ -10,30 +10,43 @@
     body {
       background: url(../includes/imgs/bg.jpg);
       margin: 0;
+      font-family: 'Helvetica Neue', sans-serif;
     }
 
     #elaborate_slider { 
-      width: 800px;
+      width: 100%;
       height: 460px;
-      margin: 50px auto 0;
     }
 
     .slider_container {
       width: 800px;
       height: 460px;
+      margin: 50px auto 0;
     }
 
-    .caption {
+    .caption_wrap {
       position: absolute;
-      top: 20px;
-      left: 40px;
-      width: 100px;
-      height: 30px;
+      top: 325px;
+      width: 100%;
+      height: 190px;
       box-shadow: 0 0 5px black;
       z-index: 10;
-      background-color: white;
-      border-radius: 5px;
-      padding: 10px;
+      background-color: rgba(255,255,255,0.5);
+    }
+
+    .caption_overlay {
+      width: 800px;
+      margin: 0 auto;
+      position: relative;
+      left: -30px;
+    }
+
+    .caption_content {
+      width: 400px;
+      height: 130px;
+      padding: 30px;
+      background-color: rgba(255,255,255,0.75);
+      display: none;
     }
 
     .foreground {
@@ -49,6 +62,33 @@
       overflow: hidden;
     }
 
+    .glide-pagination a, .glide-pagination a.active
+    {
+      background: none;
+      border: thin solid black;
+    }
+
+    .glide-pagination a.active
+    {
+      border: thin solid red;
+    }
+
+    #inner_slider {
+      position: absolute;
+      top: 65px;
+      left: 62px;
+      width: 148px;
+      height: 221px;
+      z-index: 10;
+      background-color: black;
+    }
+
+    .inner_slider_container {
+      width: 148px;
+      height: 221px;
+      background-color: black;
+    }
+
   </style>
 </head>
 <body>
@@ -61,7 +101,6 @@
         <div class="background">
           <img src="../includes/imgs/2.jpg" />
         </div>
-        <div class="caption">Test</div>
       </div>
       <div class="slide">
         <img src="../includes/imgs/vertical_img2.jpg" />
@@ -70,12 +109,23 @@
         <img src="../includes/imgs/vertical_img3.jpg" />
       </div>
     </div>
-  </div>
+    <div class="captions">
+      <div class="caption_wrap">
+        <div class="caption_overlay">
+          <div class="caption_content">
+            <div class="caption_copy">Stuff here</div>
+          </div>
+          <div class="caption_content">
+            <div class="caption_copy">Stuff here2</div>
+          </div>
+        </div>
+      </div>
   </div>
   <script type="text/javascript">
     slider = $('#elaborate_slider').glide({
       preload: true,
-      customCaption: '.caption',
+      customCaption: '.caption_content',
+      captionDelay: 300,
       initCallback: function(){
         $(this).css('background', '');
         $(this).find('.slide .background > img').fadeTo(400, '0.85', function(){
