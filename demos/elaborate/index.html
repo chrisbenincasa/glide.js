@@ -8,34 +8,43 @@
   <script type="text/javascript" src="../includes/js/glide.js"></script>
   <style type="text/css">
     body {
-      background: url(../includes/imgs/bg.jpg);
+      /*background: url(../includes/imgs/bg.jpg);*/
       margin: 0;
       font-family: 'Helvetica Neue', sans-serif;
     }
 
     #elaborate_slider { 
       width: 100%;
-      height: 460px;
+      height: 550px;
+      position: relative;
+    }
+
+    .slider_wrap {
+      width: 900px;
+      height: 550px;
+      margin: 0 auto;
     }
 
     .slider_container {
-      width: 800px;
-      height: 460px;
-      margin: 50px auto 0;
+      width: 900px;
+      height: 550px;
+      margin: 35px auto 0;
     }
 
-    .caption_wrap {
+    .captions {
       position: absolute;
-      top: 325px;
+      bottom: 30px;
       width: 100%;
       height: 190px;
       box-shadow: 0 0 5px black;
       z-index: 10;
-      background-color: rgba(255,255,255,0.5);
+      background: rgba(255,255,0,0.3);
+      background-image: url(imgs/caption_bg.png) repeat;
     }
 
     .caption_overlay {
-      width: 800px;
+      width: 900px;
+      height: 190px;
       margin: 0 auto;
       position: relative;
       left: -30px;
@@ -45,8 +54,25 @@
       width: 400px;
       height: 130px;
       padding: 30px;
-      background-color: rgba(255,255,255,0.75);
+      background: rgba(255,255,0,0.75);
+      background-image: url(imgs/caption_overlay_bg.png) repeat;
+      position: absolute;
+      top: 0;
+      -webkit-transition: background-color 0.2s;
+      -moz-transition: background-color 0.2s;
+      -o-transition: background-color 0.2s;
+      -ms-transition: background-color 0.2s;
+      transition: background-color 0.2s;
+    }
+
+    .caption_content:hover {
+      background: rgb(255,255,0);
+    }
+
+    .caption_copy {
       display: none;
+      position: relative;
+      font-size: 24px;
     }
 
     .foreground {
@@ -57,56 +83,30 @@
     }
 
     .background {
-      height: 400px;
-      margin-top: 37px;
+      height: 550px;
       overflow: hidden;
     }
 
-    .glide-pagination a, .glide-pagination a.active
-    {
-      background: none;
-      border: thin solid black;
-    }
-
-    .glide-pagination a.active
-    {
-      border: thin solid red;
-    }
-
-    #inner_slider {
-      position: absolute;
-      top: 65px;
-      left: 62px;
-      width: 148px;
-      height: 221px;
-      z-index: 10;
-      background-color: black;
-    }
-
-    .inner_slider_container {
-      width: 148px;
-      height: 221px;
-      background-color: black;
+    .next, .prev {
+      position: relative;
+      top: 0;
     }
 
   </style>
 </head>
 <body>
   <div id="elaborate_slider">
-    <div class="slider_container">
-      <div class="slide">
-        <div class="foreground">
-          <img src="imgs/iphone_hand_1.png" />
+    <div class="slider_wrap">
+      <div class="slider_container">
+        <div class="slide">
+          <img width="900" height="550" src="../includes/imgs/elaborate_1.jpg" />
         </div>
-        <div class="background">
-          <img src="../includes/imgs/2.jpg" />
+        <div class="slide">
+          <img width="900" height="550" src="../includes/imgs/elaborate_2.jpg" />
         </div>
-      </div>
-      <div class="slide">
-        <img src="../includes/imgs/vertical_img2.jpg" />
-      </div>
-      <div class="slide">
-        <img src="../includes/imgs/vertical_img3.jpg" />
+        <div class="slide">
+          <img width="900" height="550" src="../includes/imgs/elaborate_3.jpg" />
+        </div>
       </div>
     </div>
     <div class="captions">
@@ -114,18 +114,22 @@
         <div class="caption_overlay">
           <div class="caption_content">
             <div class="caption_copy">Stuff here</div>
-          </div>
-          <div class="caption_content">
             <div class="caption_copy">Stuff here2</div>
+            <div class="caption_copy">Stuff here3</div>
           </div>
         </div>
       </div>
+    </div>
   </div>
   <script type="text/javascript">
-    slider = $('#elaborate_slider').glide({
+    slider = $('.slider_wrap').glide({
       preload: true,
-      customCaption: '.caption_content',
-      captionDelay: 300,
+      animation: 'fade',
+      fadeSpeed: 200,
+      customCaption: '.caption_copy',
+      //captionDelay: 300,
+      pagination: false,
+      nextPrevLinks: true,
       initCallback: function(){
         $(this).css('background', '');
         $(this).find('.slide .background > img').fadeTo(400, '0.85', function(){
