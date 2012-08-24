@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+<head>
+  <title>Glide.js Captions Example</title>
+  <link rel="stylesheet" type="text/css" href="../includes/styles/reset.css">
+  <link rel="stylesheet" type="text/css" href="../includes/styles/glide.css">
+  <link rel="stylesheet" type="text/css" href="../includes/styles/bootstrap_custom.css">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script type="text/javascript" src="../includes/js/glide.js"></script>
+  <style type="text/css">
+    #minimal_example
+    {
+      width: 400px;
+      height: 200px;
+      margin: 30px auto 0;
+    }
+
+    .slider_container
+    {
+      width: 100%;
+      height: 200px;
+    }
+
+    .source
+    {
+      width: 640px;
+      margin: 30px auto 0;
+      font-family: 'Helvetica Neue';
+    }
+
+    .button_wrap
+    {
+      width: 100%;
+      text-align: center;
+    }
+
+    pre
+    {
+      width: 100%;
+      overflow: scroll;
+      margin: 0 auto;
+      display: none;
+      white-space: pre;
+    }
+
+    h1
+    {
+      font-size: 30pt;
+    }
+
+    p {
+      font-size: 12pt;
+    }
+
+    .slide a 
+    {
+      color: seagreen;
+      text-decoration: none;
+    }
+
+  </style>
+</head>
+<body>
+  <div id="minimal_example">
+    <div class="slider_container">
+      <div class="slide">
+        <h1>Hello.</h1>
+        <p>This is an example of a simplistic Glide.js slideshow.</p>
+      </div>
+      <div class="slide">
+        <h1>Ciao.</h1>
+        <p>The slider shown here was initiated with no options.</p>
+      </div>
+      <div class="slide">
+        <h1>Hallo.</h1>
+        <p>These slides are <strong>pure</strong> HTML.</p>
+        <p>From <a href="#">links</a> to <code>&lt;span&gt;code&lt;/span&gt;</code></p>
+      </div>
+      <div class="slide">
+        <h1>&#x3054;&#x3094;&#x306b;&#x3061;&#x306f;</h1>
+        <p>Glide.js is unobtrusive so you can let your shine through while the complicated stuff is taken care of.</p>
+      </div>
+    </div>
+  </div>
+  <div class="source">
+    <div class="button_wrap">
+      <a href="#" class="btn toggle_source">View source</a>
+    </div>
+  <pre>
+    <code>
+&lt;style type="text/css"&gt;
+  #minimal_example
+  {
+    width: 400px;
+    height: 200px;
+    margin: 30px auto 0;
+  }
+
+  .slider_container
+  {
+    width: 100%;
+    height: 200px;
+  }
+&lt;/style&gt;
+&lt;div id="minimal_example"&gt;
+  &lt;div class="slider_container"&gt;
+    &lt;div class="slide"&gt;
+      &lt;h1&gt;Hello.&lt;/h1&gt;
+      &lt;p&gt;This is an example of a simplistic Glide.js slideshow.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="slide"&gt;
+      &lt;h1&gt;Ciao.&lt;/h1&gt;
+      &lt;p&gt;The slider shown here was initiated with no options.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="slide"&gt;
+      &lt;h1&gt;Hallo.&lt;/h1&gt;
+      &lt;p&gt;These slides are &lt;strong&gt;pure&lt;/strong&gt; HTML.&lt;/p&gt;
+      &lt;p&gt;From &lt;a href="#"&gt;links&lt;/a&gt; to &lt;code&gt;&lt;span&gt;code&lt;/span&gt;&lt;/code&gt;&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="slide"&gt;
+      &lt;h1&gt;&#x3054;&#x3094;&#x306b;&#x3061;&#x306f;&lt;/h1&gt;
+      &lt;p&gt;Glide.js is unobtrusive so you can let your shine through while the complicated stuff is taken care of.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+    </code>
+  </pre>
+</div>
+  <script type="text/javascript">
+    $('#minimal_example').glide();
+
+    $('.toggle_source').click(function(e){
+      e.preventDefault();
+      $('pre').slideToggle();
+      if($(this).hasClass('open'))
+      {
+        $(this).removeClass('open').text('View Source');
+      } else {
+        $(this).addClass('open').text('Hide Source');
+      } 
+    });
+  </script>
+</body>
+</html>
