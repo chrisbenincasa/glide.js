@@ -101,7 +101,7 @@
           //begin horizontal slider setup
           else {
             //Display slide container
-            $('.'+options.slideContainer, $this).css({
+            $('.' + options.slideContainer, $this).css({
               display: 'block'
             });
 
@@ -297,7 +297,7 @@
 
           /* Attach handlers in case */
 
-          $('.'+options.nextClass, $this).click(function(event){
+          $('.' + options.nextClass, $this).click(function(event){
             event.preventDefault();
             if(options.autoPlay)
             { 
@@ -310,7 +310,7 @@
             }
           });
 
-          $('.'+options.prevClass, $this).click(function(event){
+          $('.' + options.prevClass, $this).click(function(event){
             event.preventDefault();
             if(options.autoPlay)
             { 
@@ -456,24 +456,20 @@
             if(animation === 'fade') {
               handleCaptionAnimation(previousSlide, false);
 
-              //move next slide above current
-              controller.children().eq(nextSlide).css({
-                zIndex: 6
-              }).hide().fadeIn(options.fadeSpeed, options.fadeEasing, function(){  // fade in
-                controller.children().eq(previousSlide).css({               // hide now previous slide and reset z-index
-                  display: 'none',
-                  zIndex: 0
-                });
+              controller.children().eq(nextSlide).css('z-index', 8)
+                .fadeIn(options.fadeSpeed, options.fadeEasing, function(){
+                  controller.children().eq(previousSlide)
+                    .css({
+                      display: 'none',
+                      zIndex: 0
+                    });
 
-                controller.children().eq(nextSlide).css({
-                  zIndex: 5
-                });
+                  $(this).css('z-index', 5);
 
-                handleCaptionAnimation(nextSlide, true);
-                
-                animating = false;
-                options.animationEnd.call($this, currentSlide, controller.children().eq(currentSlide), previousSlide, controller.children().eq(previousSlide));
-              })
+                  handleCaptionAnimation(nextSlide, true);
+                  animating = false;
+                  options.animationEnd.call($this, currentSlide, controller.children().eq(currentSlide), previousSlide, controller.children().eq(previousSlide));                  
+                });
             }
 
             //Slider functions 
