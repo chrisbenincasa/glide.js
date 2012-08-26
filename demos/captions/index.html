@@ -37,6 +37,7 @@
     {
       width: 100%;
       text-align: center;
+      margin-bottom: 5px;
     }
 
     pre
@@ -46,6 +47,32 @@
       margin: 0 auto;
       display: none;
       white-space: pre;
+    }
+
+    .footer {
+      width: 800px;
+      margin: 0 auto;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .footer a {
+      color: steelblue;
+      -webkit-transition: none;
+      -moz-transition: none;
+      -ms-transition: none;
+      -o-transition: none;
+      transition: none;
+    }
+
+    .footer a:hover {
+      color: #0E5C9E;
+      text-decoration: underline;
+      background-color: transparent;
+    }
+
+    .footer p {
+      margin: 0 0 5px 0 !important;
     }
   </style>
 </head>
@@ -117,6 +144,10 @@
 &lt;/body&gt;
     </code>
   </pre>
+</div>
+<div class="footer">
+  <p>For full documentation, go to <a href="http://chrisbenincasa.github.com/glide.js">http://chrisbenincasa.github.com/glide.js/</a></p>
+  <p>&copy; 2012 <a href="http://chrisbenincasa.com">Christian Benincasa</a>. All rights reserved. Glide.js is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License</a></p>
 </div>
   <script type="text/javascript">
     $('#caption_slider').glide({
