@@ -32,7 +32,7 @@
       options = $.extend({}, defaultSettings, options);
       return this.each(function(){
         $this = $(this);
-        $('.'+options.slideContainer, $this).children().wrapAll('<div class="slider_controller" />');
+        $('.' + options.slideContainer, $this).children().wrapAll('<div class="slider_controller" />');
 
         var controller    = $('.slider_controller', $this),
             slides        = controller.children(),
@@ -101,7 +101,7 @@
           //begin horizontal slider setup
           else {
             //Display slide container
-            $('.'+options.slideContainer, $this).css({
+            $('.' + options.slideContainer, $this).css({
               display: 'block'
             });
 
@@ -175,10 +175,10 @@
                   loaded = true;
                   if(options.customCaption.length !== 0)
                   {
-                    caption = $(this).find(options.customCaption);
+                    caption = $(options.customCaption).eq(startSlide);
 
                     //only fading is supported for custom captions at this time
-                    caption.delay(options.captionDelay).fadeIn(fadeSpeed, fadeEasing);
+                    caption.delay(options.captionDelay).fadeIn(options.fadeSpeed / 2, fadeEasing);
 
                   } else {
                     caption = $(this).find('.slider-caption');
@@ -220,9 +220,10 @@
                   //Otherwise, use built in caption (title attribute from element)
                   if(options.customCaption.length !== 0)
                   {
-                    caption = controller.find(options.customCaption).eq(startSlide);
-                    caption.delay(options.captionDelay).fadeIn(options.fadeSpeed, options.fadeEasing);
-
+                    caption = $(options.customCaption).eq(startSlide);
+                    caption.delay(options.captionDelay).fadeIn(options.fadeSpeed / 2, options.fadeEasing, function(){
+                      options.loadedCallback.call($this);
+                    });
                   } else {
                     caption = controller.find('.slider-caption').eq(startSlide);
                     if(options.captionAnimation === 'slide')
@@ -232,10 +233,12 @@
                         }, 300, 'swing');
                       options.loadedCallback.call($this);
                     } else {
-                      caption.hide().css({'top': '-='+caption.outerHeight()}).fadeIn();
+                      caption.hide().css({'top': '-='+caption.outerHeight()}).fadeIn(options.fadeSpeed / 2, function(){
+                        options.loadedCallback.call($this);
+                      });
                     }
                   }
-                });
+              });
             }
           }
 
@@ -294,7 +297,7 @@
 
           /* Attach handlers in case */
 
-          $('.'+options.nextClass, $this).click(function(event){
+          $('.' + options.nextClass, $this).click(function(event){
             event.preventDefault();
             if(options.autoPlay)
             { 
@@ -307,7 +310,7 @@
             }
           });
 
-          $('.'+options.prevClass, $this).click(function(event){
+          $('.' + options.prevClass, $this).click(function(event){
             event.preventDefault();
             if(options.autoPlay)
             { 
@@ -322,7 +325,7 @@
 
           //Finished initalizing
           //Call custom callback function
-          options.initCallback.call($this)
+          options.initCallback.call($this, options)
           return $this;
         }
 
@@ -447,30 +450,26 @@
                 break;
             }
 
-            options.animationStart.call($this, previousSlide, currentSlide);
+            options.animationStart.call($this, currentSlide, controller.children().eq(currentSlide), previousSlide, controller.children().eq(previousSlide));
 
             //Crossfader
             if(animation === 'fade') {
               handleCaptionAnimation(previousSlide, false);
 
-              //move next slide above current
-              controller.children().eq(nextSlide).css({
-                zIndex: 6
-              }).fadeIn(options.fadeSpeed, options.fadeEasing, function(){  // fade in
-                controller.children().eq(previousSlide).css({               // hide now previous slide and reset z-index
-                  display: 'none',
-                  zIndex: 0
+              controller.children().eq(nextSlide).css('z-index', 8)
+                .fadeIn(options.fadeSpeed, options.fadeEasing, function(){
+                  controller.children().eq(previousSlide)
+                    .css({
+                      display: 'none',
+                      zIndex: 0
+                    });
+
+                  $(this).css('z-index', 5);
+
+                  handleCaptionAnimation(nextSlide, true);
+                  animating = false;
+                  options.animationEnd.call($this, currentSlide, controller.children().eq(currentSlide), previousSlide, controller.children().eq(previousSlide));                  
                 });
-
-                controller.children().eq(nextSlide).css({
-                  zIndex: 0
-                })
-
-                handleCaptionAnimation(nextSlide, true);
-
-                animating = false;
-                options.animationEnd.call($this, previousSlide, currentSlide);
-              })
             }
 
             //Slider functions 
@@ -509,8 +508,9 @@
                   });
                 }, options.slideSpeed)
 
-                options.animationEnd.call($this, previousSlide, currentSlide);
+                options.animationEnd.call($this, currentSlide, controller.children().eq(currentSlide), previousSlide, controller.children().eq(previousSlide));
                 animating = false;
+
               } else {
 
                 controller.children().eq(nextSlide).css({
@@ -519,7 +519,6 @@
                 });
 
                 handleCaptionAnimation(previousSlide, false)
-
                 controller.animate({
                   left: direction
                 }, options.slideSpeed, options.slideEasing, function(){
@@ -540,7 +539,7 @@
 
                   handleCaptionAnimation(nextSlide, true);
 
-                  options.animationEnd.call($this, previousSlide, currentSlide);
+                  options.animationEnd.call($this, currentSlide, controller.children().eq(currentSlide), previousSlide, controller.children().eq(previousSlide));
                   animating = false;
                 });
               }
@@ -570,13 +569,13 @@
         // This function handles the caption transitions when the slide is changed
         function handleCaptionAnimation(captionIndex, show)
         {
-          var caption = (options.customCaption.length !== 0) ? controller.find(options.customCaption).eq(captionIndex) : controller.find('.slider-caption').eq(captionIndex);
+          var caption = (options.customCaption.length !== 0) ? $(options.customCaption).eq(captionIndex) : controller.find('.slider-caption').eq(captionIndex);
           if(show)
           {
             if(options.customCaption.length !== 0)
             {
               //only fading is supported for custom captions at this time
-              caption.delay(options.captionDelay).fadeIn(options.fadeSpeed, options.fadeEasing);
+              caption.delay(options.captionDelay).fadeIn(options.fadeSpeed / 2, options.fadeEasing);
             } else {
               if(options.captionAnimation === 'fade') caption.hide().css({'top': '-='+caption.outerHeight()}).delay(options.captionDelay).fadeIn(options.fadeSpeed, options.fadeEasing);
               else if(options.captionAnimation === 'slide') caption.delay(options.captionDelay).show().animate({top: "-=" + caption.outerHeight()}, options.slideSpeed, options.slideEasing)
@@ -585,9 +584,9 @@
             if(options.customCaption.length !== 0)
             {
               //only fading is supported for custom captions at this time
-              caption.delay(options.captionDelay).fadeOut(options.fadeSpeed, options.fadeEasing);
+              caption.delay(options.captionDelay).fadeOut(options.fadeSpeed / 2, options.fadeEasing);
             } else {
-              if(options.captionAnimation === 'fade') caption.fadeOut(options.fadeSpeed, options.fadeEasing, function(){$(this).css({top: controller.height()})});
+              if(options.captionAnimation === 'fade') caption.fadeOut(options.fadeSpeed / 2, options.fadeEasing, function(){$(this).css({top: controller.height()})});
               else if(options.captionAnimation === 'slide') caption.animate({top: "+=" + caption.outerHeight()}, options.slideSpeed, options.slideEasing, function(){
                 $(this).hide();
               });
@@ -756,13 +755,13 @@
     pauseOnHover      : false,              // carousel will stop on when the cursor enters it
     startSlide        : 0,                  // zero-based slide index
     autoPlay          : 0,                  // when activated, will be the amount of time each slide is active in ms, 0 will deactivate autoPlay
-    fadeSpeed         : 350,                // fade transition speed in ms
-    fadeEasing        : '',                 // fade easing, extend options using jquery.easing plugin
-    slideSpeed        : 350,                // slide transition speed
-    slideEasing       : '',                 // slide easing, extend options using jquery.easing plugin
+    fadeSpeed         : 450,                // fade transition speed in ms
+    fadeEasing        : 'swing',                 // fade easing, extend options using jquery.easing plugin
+    slideSpeed        : 450,                // slide transition speed
+    slideEasing       : 'swing',                 // slide easing, extend options using jquery.easing plugin
     adjustHeight      : false,              // carousel will adjust height its for each slide
-    adjustHeightSpeed : 350,                // height transition speed
-    adjustHeightEasing: '',                 // height adjustment easing, extend options using jquery.easing plugin
+    adjustHeightSpeed : 450,                // height transition speed
+    adjustHeightEasing: 'swing',                 // height adjustment easing, extend options using jquery.easing plugin
     slideContainer    : 'slider_container', // class of container that holds slides
     currentClass      : 'current',          // class of slide that is active and showing
     paginationClass   : 'glide-pagination', // class applied to each pagination link

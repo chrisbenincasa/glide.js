@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Glide.js</title>
+  <title>Glide.js -- the simple, robust, lightweight jQuery slider plugin</title>
   <link rel="stylesheet" type="text/css" href="reset.css">
   <link rel="stylesheet" type="text/css" href="glide.css">
   <link rel="stylesheet" type="text/css" href="style.css">
@@ -10,6 +10,14 @@
   <script type="text/javascript" src="js/main.js"></script>
 </head>
 <body>
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=183019445158455";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
   <div class="top_nav">
     <div class="nav_inner">
       <div class="left">
@@ -20,7 +28,7 @@
         <a class="how_link" href="#how">How?</a>
         <a class="examples_link" href="#examples">Examples</a>
         <a class="docs_link" href="#docs">Docs</a>
-        <a class="download_link" href="#download">Download</a>
+        <a class="download_link" href="./files/glidejs.zip">Download</a>
       </div>
       <div class="clearfix"></div>
     </div>
@@ -50,8 +58,34 @@
     <div id="summary" class="section">
       <a class="header_link" href="#summary">#</a><h1>Summary</h1>
       <p>Glide.js is a simple, lightweight, multi-oriented, multi-directional jQuery carousel. It is accessable by developers of all skill levels to integrate this straight-foward, yet powerful, slider in their project. Out of the box, Glide.js comes with a large set of options that can be used to create any slider you can imagine!</p>
+      <div class="right">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-lang="en">Tweet</a><br>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        <div class="g-plusone" data-size="medium"></div><br>
+        <script type="text/javascript">
+          (function() {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/plusone.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+          })();
+        </script>
+        <div class="fb-like" data-href="http://chrisbenincasa.github.com/glide.js/" data-send="false" data-layout="button_count" data-width="75" data-show-faces="false" data-font="lucida grande"></div>
+      </div>
       <p>Development continues to add features and fix bugs in Glide.js. If you're experiencing a bug, tell us about it <a href="https://github.com/chrisbenincasa/glide.js/issues">here!</a></p>
       <p>Glide.js is compatible with all modern browsers and jQuery version 1.4+</p>
+      <h3 class="downloads_header">Downloads</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td><a href="./files/glidejs.zip" class="btn-large btn btn-blue">Standard Version</a></td>
+            <td>Includes <em><strong>development version (29.0kb)</strong></em> and <em><strong>minified, production version (9.43kb)</strong></em>.</td>
+          </tr>
+          <tr>
+            <td><a href="./files/glidejs-extended.zip" class="btn-large btn btn-purple">Full Version</a></td>
+            <td>Includes <em><strong>development and minified versions</strong></em>, as well as <em><strong>5 examples (about 4.5mb total download)</strong></em>.</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div id="how" class="section">
       <a class="header_link" href="#how">#</a><h1>How?</h1>
@@ -329,8 +363,9 @@
         </div>
       </div>
     </div>
-    <div id="download" class="section">
-      <a class="header_link" href="#download">#</a><h1>Download</h1>
+    <div class="footer">
+      <p>Check out the source on <a href="http://github.com/chrisbenincasa/glide.js/">GitHub</a>.</p>
+      <p>&copy; 2012 by <a href="http://chrisbenincasa.com">Christian Benincasa</a>. All rights reserved. Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache license</a>.</p>
     </div>
   </div>
   <script type="text/javascript">

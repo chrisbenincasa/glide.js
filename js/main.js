@@ -4,8 +4,7 @@ $(document).ready(function(e){
     'summary'   : $('#summary').offset().top - 40,
     'how'       : $('#how').offset().top - 40,
     'examples'  : $('#examples').offset().top - 40,
-    'docs'      : $('#docs').offset().top - 40,
-    'download'  : $('#download').offset().top - 40
+    'docs'      : $('#docs').offset().top - 40
   },
   navigating = false;
   
@@ -29,7 +28,7 @@ $(document).ready(function(e){
       {
         link = 'examples_link';
       }
-      else if(scroll >= scrollPositions['docs'] && scroll < scrollPositions['download'])
+      else if(scroll >= scrollPositions['docs'])
       {
         link = 'docs_link';
       }
@@ -46,7 +45,7 @@ $(document).ready(function(e){
 
   });
 
-  $('div.nav a, a.home_link').click(function(e){
+  $('div.nav a, a.home_link').not('.download_link').click(function(e){
     e.preventDefault();
     $this = $(this);
     $section = $($this.attr('href'));
